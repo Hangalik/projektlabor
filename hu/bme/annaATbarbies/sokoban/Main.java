@@ -1,5 +1,8 @@
 package hu.bme.annaATbarbies.sokoban;
 
+import hu.bme.annaATbarbies.sokoban.model.Direction;
+import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -9,5 +12,7 @@ public class Main {
         System.out.println("Hello Balazs!");
         System.out.println("Hello Jozsi!");
         System.out.println("Meg egyszer probalkozom. Hello Gergo!");
+
+        new Worker().step(Direction.UP);
     }
 }

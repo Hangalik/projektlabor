@@ -21,12 +21,23 @@ public class SkeletonHelper {
 
     public static String read() {
         String ret = null;
+        System.out.print(indent);
         try {
             ret = br.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            //NOP
         }
         return ret;
+    }
+
+    public static int readInt() {
+        int responseNum;
+        try {
+            responseNum = Integer.parseInt(read());
+        } catch (NumberFormatException e) {
+            responseNum = 1;
+        }
+        return responseNum;
     }
 
     public static void write(String str) {
