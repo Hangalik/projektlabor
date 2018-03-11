@@ -9,5 +9,6 @@ public class Main {
         System.out.println("Hello Balazs!");
         System.out.println("Hello Jozsi!");
         System.out.println("Meg egyszer probalkozom. Hello Gergo!");
+        System.out.println("Hello Anna");
     }
 }
