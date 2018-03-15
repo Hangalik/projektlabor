@@ -35,7 +35,7 @@ public class SkeletonHelper {
         try {
             responseNum = Integer.parseInt(read());
         } catch (NumberFormatException e) {
-            responseNum = 1;
+            responseNum = -1;
         }
         return responseNum;
     }
