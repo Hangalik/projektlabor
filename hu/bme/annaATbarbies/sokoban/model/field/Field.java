@@ -7,14 +7,14 @@ import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
 
 /**
- * Egy üres mező, amin tolható objektum lehet.
- * Eldönti, hogy mi történjen, ha egy tolható objektum kerülne rá.
- * A többi pályaelem alaposztálya.
+ * Egy Ã¼res mezÅ‘, amin tolhatÃ³ objektum lehet.
+ * EldÃ¶nti, hogy mi tÃ¶rtÃ©njen, ha egy tolhatÃ³ objektum kerÃ¼lne rÃ¡.
+ * A tÃ¶bbi pÃ¡lyaelem alaposztÃ¡lya.
  */
 public class Field {
 
     /**
-     * törli a mezőn lévő tolható objektumot.
+     * tÃ¶rli a mezÅ‘n lÃ©vÅ‘ tolhatÃ³ objektumot.
      */
     public void removePushable() {
         SkeletonHelper.appendIndent();
@@ -23,7 +23,7 @@ public class Field {
     }
 
     /**
-     * saját magára teszi a rátolt objektumot, ha rajta nincs másik tolható objektum.
+     * sajÃ¡t magÃ¡ra teszi a rÃ¡tolt objektumot, ha rajta nincs mÃ¡sik tolhatÃ³ objektum.
      * @param p
      */
     public void accept(Pushable p) {
@@ -37,7 +37,7 @@ public class Field {
     }
 
     /**
-     * visszaadja azt a tolható elemet, ami a lépni kívánó elem előtt van, tehát amit el kell tolnia.
+     * visszaadja azt a tolhatÃ³ elemet, ami a lÃ©pni kÃ­vÃ¡nÃ³ elem elÅ‘tt van, tehÃ¡t amit el kell tolnia.
      * @return
      */
     public Pushable getObstacle() {
@@ -62,7 +62,7 @@ public class Field {
     }
 
     /**
-     * visszaadja a Direction irányban lévő szomszédos mezőt.
+     * visszaadja a Direction irÃ¡nyban lÃ©vÅ‘ szomszÃ©dos mezÅ‘t.
      * @param dir
      * @return
      */
@@ -92,7 +92,23 @@ public class Field {
         SkeletonHelper.popIndent();
         return ret;
     }
-
+    
+    /**
+     * Beállítja a megfelelő irányba a szomszédos elemet
+     * @param dir
+     * @param neig
+     */
+    public void setNeighbor(Direction dir,Field neig) {
+    	SkeletonHelper.appendIndent();
+    	SkeletonHelper.write("Field setNeighbor function.");
+    	SkeletonHelper.popIndent();
+    	return;
+    }
+    
+    /**
+     * Ráhelyezi a tolható tárgyat a mezőre
+     * @param pushable
+     */
     public void setPushable(Pushable pushable) {
         SkeletonHelper.appendIndent();
         SkeletonHelper.write("Field setPushable function.");
