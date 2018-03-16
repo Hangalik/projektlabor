@@ -22,13 +22,17 @@ public class Main {
         	SkeletonHelper.write("Press 3 to exit.");
         	menu=SkeletonHelper.readInt();
         	 switch (menu) {
-             default: menu=0;
+             default: 
+            	 	menu=0;
+            	 	break;
              case 1: 
             	 	Game.getInstance().start();   
             	 	break;
              case 2: 
             	 	new Worker().step(Direction.UP);
                  	break;
+             case 3:
+            	 	return;
         	 }   
         	 SkeletonHelper.popIndent();        	
         }   
