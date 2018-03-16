@@ -61,6 +61,25 @@ public class Worker extends Pushable implements Controller {
      * @return
      */
     public boolean crush (Direction dir) {
-        return false;
+        SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Worker crush function.");
+
+        SkeletonHelper.write("What is pushing this worker? 1: It's stepping; 2: It's pushed by a Worker; 3: It's pushed by a Box");
+        int responseNum = SkeletonHelper.readInt();
+
+        boolean ret;
+        switch(responseNum) {
+            default:
+            case 1: ret = false;
+                break;
+            case 2: ret = new Worker().crush(Direction.DOWN);
+                break;
+            case 3: this.die();
+                ret = true;
+                break;
+        }
+
+        SkeletonHelper.popIndent();
+        return ret;
     }
 }
