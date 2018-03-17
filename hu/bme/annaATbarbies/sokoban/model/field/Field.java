@@ -12,6 +12,15 @@ import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
  * A többi pályaelem alaposztálya.
  */
 public class Field {
+	
+	//Field attribútumok
+	//protected Pushable pushable;
+	//protected Map<Direction, Field> neighbour;
+	
+	//Field konstruktor
+	//public Field() {
+	//	neighbour = new Map<Direction, Field>();
+	//}
 
     /**
      * törli a mezőn lévő tolható objektumot.
@@ -31,7 +40,7 @@ public class Field {
         SkeletonHelper.write("Field accept function.");
 
         new Field().removePushable();
-        this.setPushable(new Worker());
+        this.setPushable(p);
 
         SkeletonHelper.popIndent();
     }

@@ -13,6 +13,19 @@ public class Hole extends Field {
      */
     @Override
     public void accept(Pushable p) {
-
+    	SkeletonHelper.appendIndent();
+    	SkeletonHelper.write("Hole accept function.");
+    	p.die();
+    	SkeletonHelper.popIndent();
     }
+    
+    /**
+     * A lyuk a lekérdezésre mindig null értékkel tér vissza
+     */
+    @Override
+    public pushable GetObstacle() {
+    	SkeletonHelper.appendIndent();
+    	SkeletonHelper.write("Hole getObstacle function.");
+    	SkeletonHelper.popIndent();
+    	return null;
 }

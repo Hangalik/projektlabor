@@ -14,6 +14,19 @@ public class Block extends Field {
      */
     @Override
     public void accept(Pushable p) {
-
+    	SkeletonHelper.appendIndent();
+    	SkeletonHelper.write("Block accept function.");
+    	SkeletonHelper.popIndent();
+    }
+    
+    /**
+     * Visszatérése null, mivel soha nem állhat rajta tolható objektum
+     */
+    @Override
+    public Pushable getObstacle() {
+        SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Block getObstacle function.");
+        SkeletonHelper.popIndent();
+        return null;
     }
 }
