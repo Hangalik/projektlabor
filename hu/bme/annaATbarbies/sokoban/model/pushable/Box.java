@@ -2,6 +2,7 @@ package hu.bme.annaATbarbies.sokoban.model.pushable;
 
 import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.Direction;
+import hu.bme.annaATbarbies.sokoban.model.Floor;
 import hu.bme.annaATbarbies.sokoban.model.field.Field;
 import hu.bme.annaATbarbies.sokoban.model.field.Switch;
 
@@ -17,7 +18,22 @@ public class Box extends Pushable {
      */
     @Override
     public void push(Direction dir, Box box) {
-
+    	SkeletonHelper.appendIndent();
+    	SkeletonHelper.write("Box push function.");
+    	
+    	Field neighbor = new Field().getNeigbor(Direction.UP);
+    	Pushable obstacle = neighbor.getObstacle();
+         if (obstacle == null) {
+             neighbor.accept(new Box());
+         }
+         else {
+        	 obstacle.push(Direction.UP, new Box());
+        	 obstacle = neighbor.getObstacle();
+             if (obstacle == null) {
+                 neighbor.accept(new Box());
+              }
+         }
+    	SkeletonHelper.popIndent();
     }
 
     /**
@@ -73,7 +89,10 @@ public class Box extends Pushable {
      */
     @Override
     public void switchMe(Switch sw) {
-
+    	SkeletonHelper.appendIndent();
+    	SkeletonHelper.write("Box switchMe function.");
+    	new Switch().switch_();
+    	SkeletonHelper.popIndent();
     }
 
     /**
@@ -81,6 +100,9 @@ public class Box extends Pushable {
      */
     @Override
     public void onTarget() {
-
+    	SkeletonHelper.appendIndent();
+    	SkeletonHelper.write("Box onTarget function.");
+    	Floor.getInstance().rewardCurrentPlayer();
+    	SkeletonHelper.popIndent();
     }
 }
