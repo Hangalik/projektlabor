@@ -36,7 +36,12 @@ public class Floor {
      * meghívja az éppen aktív játékos gainPoint() metódusát.
      */
     public void rewardCurrentPlayer() {
+        SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Floor rewardCurrentPlayer function.");
 
+        new Worker().gainPoint();
+
+        SkeletonHelper.popIndent();
     }
     
     /**
