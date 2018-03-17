@@ -33,7 +33,10 @@ public abstract class Pushable {
      * @return
      */
     public boolean crush(Direction dir) {
-        return false;
+    	SkeletonHelper.appendIndent();
+    	SkeletonHelper.write("Pushable crush function.");
+    	SkeletonHelper.popIndent();
+    	return false;	//a worker irja felul, alap esetben semmi sem osszenyomhato
     }
 
     /**
@@ -43,8 +46,8 @@ public abstract class Pushable {
         SkeletonHelper.appendIndent();
         SkeletonHelper.write("Pushable die function.");
 
-        new Field().removePushable();
-        Floor.getInstance().pushableDied(this);
+        new Field().removePushable();	//eltavolitja a mezororol
+        Floor.getInstance().pushableDied(this);	//szol a palyanak, hogy egy jatekossal kevesebb van
 
         SkeletonHelper.popIndent();
     }
@@ -55,7 +58,12 @@ public abstract class Pushable {
      * @param s
      */
     public void switchMe(Switch s) {
-
+    	SkeletonHelper.appendIndent();
+    	SkeletonHelper.write("Pushable switchMe function.");
+    	
+    	//nem csinal semmit, a box fogja megvalositani
+    	
+    	SkeletonHelper.popIndent();
     }
 
     /**
@@ -63,6 +71,11 @@ public abstract class Pushable {
      * Itt nem csinál semmit. Amelyik leszármazott akar valamit, az felülírja.
      */
     public void onTarget() {
-
+    	SkeletonHelper.appendIndent();
+    	SkeletonHelper.write("Pushable onTarget function.");
+    	
+    	//nem csinal semmit, a box fogja megvalositani
+    	
+    	SkeletonHelper.popIndent();
     }
 }
