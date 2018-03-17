@@ -1,6 +1,9 @@
 package hu.bme.annaATbarbies.sokoban.model.pushable;
 
+import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.Direction;
+import hu.bme.annaATbarbies.sokoban.model.Floor;
+import hu.bme.annaATbarbies.sokoban.model.field.Field;
 import hu.bme.annaATbarbies.sokoban.model.field.Switch;
 
 /**
@@ -30,14 +33,23 @@ public abstract class Pushable {
      * @return
      */
     public boolean crush(Direction dir) {
-        return false;
+    	SkeletonHelper.appendIndent();
+    	SkeletonHelper.write("Pushable crush function.");
+    	SkeletonHelper.popIndent();
+    	return false;	//a worker irja felul, alap esetben semmi sem osszenyomhato
     }
 
     /**
      * TODO: No description in the doc...
      */
     public void die() {
+        SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Pushable die function.");
 
+        new Field().removePushable();	//eltavolitja a mezororol
+        Floor.getInstance().pushableDied(this);	//szol a palyanak, hogy egy jatekossal kevesebb van
+
+        SkeletonHelper.popIndent();
     }
 
     /**
@@ -46,7 +58,12 @@ public abstract class Pushable {
      * @param s
      */
     public void switchMe(Switch s) {
-
+    	SkeletonHelper.appendIndent();
+    	SkeletonHelper.write("Pushable switchMe function.");
+    	
+    	//nem csinal semmit, a box fogja megvalositani
+    	
+    	SkeletonHelper.popIndent();
     }
 
     /**
@@ -54,6 +71,11 @@ public abstract class Pushable {
      * Itt nem csinál semmit. Amelyik leszármazott akar valamit, az felülírja.
      */
     public void onTarget() {
-
+    	SkeletonHelper.appendIndent();
+    	SkeletonHelper.write("Pushable onTarget function.");
+    	
+    	//nem csinal semmit, a box fogja megvalositani
+    	
+    	SkeletonHelper.popIndent();
     }
 }

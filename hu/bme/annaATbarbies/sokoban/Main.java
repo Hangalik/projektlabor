@@ -13,7 +13,7 @@ public class Main {
         System.out.println("Hello Jozsi!");
         System.out.println("Meg egyszer probalkozom. Hello Gergo!");
         System.out.println("Hello Anna");
-
+        System.out.println("Saját branchemre töltöm fel, Gergõ.");
         new Worker().step(Direction.UP);
     }
 }

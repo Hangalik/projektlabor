@@ -1,6 +1,8 @@
 package hu.bme.annaATbarbies.sokoban.model.pushable;
 
+import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.Direction;
+import hu.bme.annaATbarbies.sokoban.model.field.Field;
 import hu.bme.annaATbarbies.sokoban.model.field.Switch;
 
 /**
@@ -23,7 +25,30 @@ public class Box extends Pushable {
      */
     @Override
     public void push(Direction dir, Worker worker) {
+        SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Box push function.");
 
+        boolean dead = new Worker().crush(Direction.DOWN);
+
+        if(dead) {
+            SkeletonHelper.popIndent();
+            return;
+        }
+
+        Field neighbor = new Field().getNeigbor(Direction.UP);
+        Pushable obstacle = neighbor.getObstacle();
+        if (obstacle == null) {
+            neighbor.accept(new Box());
+        } else {
+            obstacle.push(Direction.UP, new Box());
+
+            obstacle = neighbor.getObstacle();
+            if (obstacle == null) {
+                neighbor.accept(new Box());
+            }
+        }
+
+        SkeletonHelper.popIndent();
     }
 
     /**

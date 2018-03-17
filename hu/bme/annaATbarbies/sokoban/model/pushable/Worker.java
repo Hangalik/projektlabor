@@ -5,23 +5,24 @@ import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.field.Field;
 
 public class Worker extends Pushable implements Controller {
-
+	
+	//a jatekos lep
     @Override
     public void step(Direction dir) {
         SkeletonHelper.appendIndent();
         SkeletonHelper.write("Worker step function.");
-
+        
         Field neighbor = new Field().getNeigbor(Direction.UP);
-        Pushable obstacle = neighbor.getObstacle();
+        Pushable obstacle = neighbor.getObstacle();	//lekeri a szomszedos mezo tolhato objektumat
         if (obstacle == null) {
-            neighbor.accept(new Worker());
+            neighbor.accept(new Worker());			//ha nincs, akkor a szomszedos mezore lep
         } else {
-            obstacle.push(Direction.UP, new Worker());
+            obstacle.push(Direction.UP, new Worker());	//ha van, akkor eltolja
 
             obstacle = neighbor.getObstacle();
             if (obstacle == null) {
-                neighbor.accept(new Worker());
-            }
+                neighbor.accept(new Worker());			//ha sikerult eltolnia, akkor a szomszedos mezore lephet
+            }											//ha nem, akkor nem lep sehova
         }
 
         SkeletonHelper.popIndent();
@@ -41,7 +42,24 @@ public class Worker extends Pushable implements Controller {
      */
     @Override
     public void push(Direction dir, Box box) {
+    	SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Worker push function. Called when box pushed.");
+        
+        Field neighbor = new Field().getNeigbor(Direction.UP);
+                
+        Pushable obstacle = neighbor.getObstacle();	//lekeri a szomszedos mezo tolhato objektumat
+        if (obstacle == null) {
+            neighbor.accept(new Worker());			//ha nincs, akkor a szomszedos mezore lep
+        } else {
+            obstacle.push(Direction.UP, new Worker());	//ha van, akkor eltolja
 
+            obstacle = neighbor.getObstacle();
+            if (obstacle == null) {
+                neighbor.accept(new Worker());			//ha sikerult eltolnia, akkor a szomszedos mezore lephet
+            }											//ha nem, akkor nem lep sehova
+        }
+        
+        SkeletonHelper.popIndent();
     }
 
     /**
@@ -51,7 +69,24 @@ public class Worker extends Pushable implements Controller {
      */
     @Override
     public void push(Direction dir, Worker worker) {
+    	SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Worker push function. Called when box pushed.");
+        
+        Field neighbor = new Field().getNeigbor(Direction.UP);
+                
+        Pushable obstacle = neighbor.getObstacle();	//lekeri a szomszedos mezo tolhato objektumat
+        if (obstacle == null) {
+            neighbor.accept(new Worker());			//ha nincs, akkor a szomszedos mezore lep
+        } else {
+            obstacle.push(Direction.UP, new Worker());	//ha van, akkor eltolja
 
+            obstacle = neighbor.getObstacle();
+            if (obstacle == null) {
+                neighbor.accept(new Worker());			//ha sikerult eltolnia, akkor a szomszedos mezore lephet
+            }											//ha nem, akkor nem lep sehova
+        }
+        
+        SkeletonHelper.popIndent();
     }
 
     /**
@@ -61,6 +96,25 @@ public class Worker extends Pushable implements Controller {
      * @return
      */
     public boolean crush (Direction dir) {
-        return false;
+        SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Worker crush function.");
+
+        SkeletonHelper.write("What is pushing this worker? 1: It's stepping; 2: It's pushed by a Worker; 3: It's pushed by a Box");
+        int responseNum = SkeletonHelper.readInt();
+
+        boolean ret;
+        switch(responseNum) {
+            default:
+            case 1: ret = false;
+                break;
+            case 2: ret = new Worker().crush(Direction.DOWN);
+                break;
+            case 3: this.die();
+                ret = true;
+                break;
+        }
+
+        SkeletonHelper.popIndent();
+        return ret;
     }
 }
