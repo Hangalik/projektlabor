@@ -39,7 +39,7 @@ public class Field {
         SkeletonHelper.appendIndent();
         SkeletonHelper.write("Field accept function.");
 
-        new Field().removePushable();
+        p.getField().removePushable();
         this.setPushable(p);
 
         SkeletonHelper.popIndent();

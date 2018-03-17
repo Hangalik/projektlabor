@@ -27,7 +27,7 @@ public class Trap extends Field {
     		p.die();
     	}
     	else {
-    		new Trap().removePushable();
+    		p.getField().removePushable();
         	this.setPushable(p);
     	}
     	

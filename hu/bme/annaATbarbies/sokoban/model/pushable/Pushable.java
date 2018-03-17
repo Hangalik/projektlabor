@@ -3,8 +3,7 @@ package hu.bme.annaATbarbies.sokoban.model.pushable;
 import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.Floor;
-import hu.bme.annaATbarbies.sokoban.model.field.Field;
-import hu.bme.annaATbarbies.sokoban.model.field.Switch;
+import hu.bme.annaATbarbies.sokoban.model.field.*;
 
 /**
  * Absztrakt osztály. Tolhatóságot biztosítja a leszármazottjainak.
@@ -37,6 +36,34 @@ public abstract class Pushable {
     	SkeletonHelper.write("Pushable crush function.");
     	SkeletonHelper.popIndent();
     	return false;	//a worker irja felul, alap esetben semmi sem osszenyomhato
+    }
+
+    public Field getField() {
+        SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Pushable getField function.");
+
+        SkeletonHelper.write("What kind of field is this object on? 1: Field; 2: Block; 3: Hole; 4: Trap; 5: Target; 6: Switch");
+        int responseNum = SkeletonHelper.readInt();
+
+        Field ret;
+        switch (responseNum) {
+            default:
+            case 1: ret = new Field();
+                break;
+            case 2: ret = new Block();
+                break;
+            case 3: ret = new Hole();
+                break;
+            case 4: ret = new Trap();
+                break;
+            case 5: ret = new Target();
+                break;
+            case 6: ret = new Switch();
+                break;
+        }
+
+        SkeletonHelper.popIndent();
+        return ret;
     }
 
     /**

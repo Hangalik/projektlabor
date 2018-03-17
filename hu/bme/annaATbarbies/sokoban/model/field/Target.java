@@ -21,11 +21,11 @@ public class Target extends Field {
         SkeletonHelper.write("Is this the first box to reach this field? 1: Yes; 2: No");
         int responseNum = SkeletonHelper.readInt();
         if(responseNum==1) {
-        	new Target().removePushable();
         	p.onTarget();
+            p.getField().removePushable();
         }
         else {
-	        new Target().removePushable();
+	        p.getField().removePushable();
 	        this.setPushable(p);
         }
 
