@@ -1,6 +1,9 @@
 package hu.bme.annaATbarbies.sokoban.model.pushable;
 
+import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.Direction;
+import hu.bme.annaATbarbies.sokoban.model.Floor;
+import hu.bme.annaATbarbies.sokoban.model.field.Field;
 import hu.bme.annaATbarbies.sokoban.model.field.Switch;
 
 /**
@@ -37,7 +40,13 @@ public abstract class Pushable {
      * TODO: No description in the doc...
      */
     public void die() {
+        SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Pushable die function.");
 
+        new Field().removePushable();
+        Floor.getInstance().pushableDied(this);
+
+        SkeletonHelper.popIndent();
     }
 
     /**
