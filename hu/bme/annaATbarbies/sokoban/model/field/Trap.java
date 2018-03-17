@@ -1,6 +1,9 @@
 package hu.bme.annaATbarbies.sokoban.model.field;
 
+import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
+import hu.bme.annaATbarbies.sokoban.model.pushable.Box;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
+import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
 
 /**
  * A játékban lévő csapdákat reprezentálja.
@@ -36,7 +39,7 @@ public class Trap extends Field {
      * visszaadja azt a tolható elemet, ami a lépni kívánó elem előtt van, tehát amit el kell tolnia.
      */
     @Override
-    public pushable GetObstacle() {
+    public Pushable getObstacle() {
     	SkeletonHelper.appendIndent();
     	SkeletonHelper.write("Trap getObstacle function.");
     	SkeletonHelper.write("Is the trap active? 1: Yes; 2: No");
@@ -72,7 +75,7 @@ public class Trap extends Field {
     public void open() {
     	SkeletonHelper.appendIndent();
     	SkeletonHelper.write("Trap open function.");
-    	pushable.die();
+    	new Worker().die();
     	SkeletonHelper.popIndent();
     }
 

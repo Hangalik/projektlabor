@@ -1,5 +1,7 @@
 package hu.bme.annaATbarbies.sokoban.model.field;
 
+import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
+import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 
 /**
@@ -16,6 +18,7 @@ public class Block extends Field {
     public void accept(Pushable p) {
     	SkeletonHelper.appendIndent();
     	SkeletonHelper.write("Block accept function.");
+    	p.crush(Direction.DOWN);
     	SkeletonHelper.popIndent();
     }
     

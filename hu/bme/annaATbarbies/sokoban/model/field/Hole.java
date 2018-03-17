@@ -1,5 +1,6 @@
 package hu.bme.annaATbarbies.sokoban.model.field;
 
+import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 
 /**
@@ -23,9 +24,10 @@ public class Hole extends Field {
      * A lyuk a lekérdezésre mindig null értékkel tér vissza
      */
     @Override
-    public pushable GetObstacle() {
-    	SkeletonHelper.appendIndent();
-    	SkeletonHelper.write("Hole getObstacle function.");
-    	SkeletonHelper.popIndent();
-    	return null;
+    public Pushable getObstacle() {
+		SkeletonHelper.appendIndent();
+		SkeletonHelper.write("Hole getObstacle function.");
+		SkeletonHelper.popIndent();
+		return null;
+	}
 }

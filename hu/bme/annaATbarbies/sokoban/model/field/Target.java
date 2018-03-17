@@ -1,5 +1,6 @@
 package hu.bme.annaATbarbies.sokoban.model.field;
 
+import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 
 /**

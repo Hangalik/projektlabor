@@ -1,6 +1,8 @@
 package hu.bme.annaATbarbies.sokoban.model.field;
 
+import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
+import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
 
 /**
  * A játékban lévő kapcsolókat reprezentálja.
@@ -31,17 +33,17 @@ public class Switch extends Field {
     /**
      * meghívja a Trap osztály open vagy close metódusát, ami átváltja a csapda állapotát.
      */
-    public void switch() {
+    public void switch_() {
     	SkeletonHelper.appendIndent();
     	SkeletonHelper.write("Switch class switch function.");
     	
     	SkeletonHelper.write("Is the switch on? 1: Yes; 2: No");
     	int responseNum = SkeletonHelper.readInt();
     	if(responseNum==1) {
-    		new Trap.close();
+    		new Trap().close();
     	}
     	else {
-    		new Trap.open();
+    		new Trap().open();
     	}
     	
     	SkeletonHelper.popIndent();
@@ -54,7 +56,7 @@ public class Switch extends Field {
     public void removePushable() {
         SkeletonHelper.appendIndent();
         SkeletonHelper.write("Switch removePushable function.");
-        new Pushable.switchMe(this);
+        new Worker().switchMe(this);
         SkeletonHelper.popIndent();
     }
 }
