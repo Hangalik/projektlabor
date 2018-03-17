@@ -39,6 +39,7 @@ public class Trap extends Field {
      * visszaadja azt a tolható elemet, ami a lépni kívánó elem előtt van, tehát amit el kell tolnia.
      */
     @Override
+
     public Pushable getObstacle() {
     	SkeletonHelper.appendIndent();
     	SkeletonHelper.write("Trap getObstacle function.");

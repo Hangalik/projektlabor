@@ -12,6 +12,7 @@ public class Block extends Field {
 
     /**
      * nem helyezi magára a tolható objektumot, mivel a falelemen nem állhat semmi.
+     * meghívja az ide lépni akaró objektum crush
      * @param p
      */
     @Override
