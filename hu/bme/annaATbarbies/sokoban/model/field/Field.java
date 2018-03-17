@@ -12,6 +12,15 @@ import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
  * A tÃ¶bbi pÃ¡lyaelem alaposztÃ¡lya.
  */
 public class Field {
+	
+	//Field attribútumok
+	//protected Pushable pushable;
+	//protected Map<Direction, Field> neighbour;
+	
+	//Field konstruktor
+	//public Field() {
+	//	neighbour = new Map<Direction, Field>();
+	//}
 
     /**
      * tÃ¶rli a mezÅ‘n lÃ©vÅ‘ tolhatÃ³ objektumot.
@@ -31,7 +40,7 @@ public class Field {
         SkeletonHelper.write("Field accept function.");
 
         new Field().removePushable();
-        this.setPushable(new Worker());
+        this.setPushable(p);
 
         SkeletonHelper.popIndent();
     }
