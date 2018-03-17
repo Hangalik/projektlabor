@@ -1,5 +1,6 @@
 package hu.bme.annaATbarbies.sokoban.model;
 
+import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 
 /**
@@ -39,6 +40,8 @@ public class Floor {
      * @param p
      */
     public void pushableDied(Pushable p) {
-
+        SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Floor pushableDied function.");
+        SkeletonHelper.popIndent();
     }
 }

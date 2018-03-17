@@ -1,7 +1,10 @@
 package hu.bme.annaATbarbies.sokoban.model.field;
 
+import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.Direction;
+import hu.bme.annaATbarbies.sokoban.model.pushable.Box;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
+import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
 
 /**
  * Egy üres mező, amin tolható objektum lehet.
@@ -14,7 +17,9 @@ public class Field {
      * törli a mezőn lévő tolható objektumot.
      */
     public void removePushable() {
-
+        SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Field removePushable function.");
+        SkeletonHelper.popIndent();
     }
 
     /**
@@ -22,7 +27,13 @@ public class Field {
      * @param p
      */
     public void accept(Pushable p) {
+        SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Field accept function.");
 
+        new Field().removePushable();
+        this.setPushable(new Worker());
+
+        SkeletonHelper.popIndent();
     }
 
     /**
@@ -30,7 +41,24 @@ public class Field {
      * @return
      */
     public Pushable getObstacle() {
-        return null;
+        SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Field getObstacle function.");
+        SkeletonHelper.write("What should be on the field? 1: Empty; 2: Worker; 3: Box;");
+        int responseNum = SkeletonHelper.readInt();
+
+        Pushable ret;
+        switch (responseNum) {
+            default:
+            case 1: ret = null;
+                break;
+            case 2: ret = new Worker();
+                break;
+            case 3: ret = new Box();
+                break;
+        }
+
+        SkeletonHelper.popIndent();
+        return ret;
     }
 
     /**
@@ -39,6 +67,35 @@ public class Field {
      * @return
      */
     public Field getNeigbor(Direction dir) {
-        return null;
+        SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Field getNeighbor function.");
+        SkeletonHelper.write("What should be the neighboring field? 1: Field; 2: Block; 3: Hole; 4: Trap; 5: Target; 6: Switch");
+        int responseNum = SkeletonHelper.readInt();
+
+        Field ret;
+        switch (responseNum) {
+            default:
+            case 1: ret = new Field();
+                break;
+            case 2: ret = new Block();
+                break;
+            case 3: ret = new Hole();
+                break;
+            case 4: ret = new Trap();
+                break;
+            case 5: ret = new Target();
+                break;
+            case 6: ret = new Switch();
+                break;
+        }
+
+        SkeletonHelper.popIndent();
+        return ret;
+    }
+
+    public void setPushable(Pushable pushable) {
+        SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Field setPushable function.");
+        SkeletonHelper.popIndent();
     }
 }
