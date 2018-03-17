@@ -1,5 +1,6 @@
 package hu.bme.annaATbarbies.sokoban.model.field;
 
+import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 
 /**
@@ -15,6 +16,19 @@ public class Target extends Field {
      */
     @Override
     public void accept(Pushable p) {
+    	SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Target accept function.");
+        SkeletonHelper.write("Is this the first box to reach this field? 1: Yes; 2: No");
+        int responseNum = SkeletonHelper.readInt();
+        if(responseNum==1) {
+        	new Target().removePushable();
+        	p.onTarget();
+        }
+        else {
+	        new Target().removePushable();
+	        this.setPushable(p);
+        }
 
+        SkeletonHelper.popIndent();
     }
 }
