@@ -67,14 +67,7 @@ public class Box extends Pushable {
         SkeletonHelper.popIndent();
     }
 
-    /**
-     * Definiálja, hogy mi történik, ha össze akarják nyomni. Mivel egy láda nem összenyomható, ezért nem csinál semmit.
-     * @return
-     */
-    @Override
-    public boolean crush(Direction dir) {
-        return false;
-    }
+   
 
     /**
      * igaz értékkel tér vissza, ha már biztosan nem lehet eltolni.
