@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
         int menu;
         while (true) {
-            SkeletonHelper.write("What's you want to do?");
+            SkeletonHelper.write("What do you want to do?");
             SkeletonHelper.appendIndent();
             SkeletonHelper.write("Press 1 to start initialize.");
             SkeletonHelper.write("Press 2 to try Worker Step function.");
