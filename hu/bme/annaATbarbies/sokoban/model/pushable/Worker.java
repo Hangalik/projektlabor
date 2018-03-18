@@ -70,7 +70,7 @@ public class Worker extends Pushable implements Controller {
     @Override
     public void push(Direction dir, Worker worker) {
     	SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Worker push function. Called when box pushed.");
+        SkeletonHelper.write("Worker push function. Called when worker pushed.");
         
         Field neighbor = new Field().getNeigbor(Direction.UP);
                 

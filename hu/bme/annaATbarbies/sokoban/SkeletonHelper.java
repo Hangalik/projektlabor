@@ -8,7 +8,7 @@ public class SkeletonHelper {
 
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private static String indent = "";
-    private static String singleIndent = "\t";
+    private static final String singleIndent = "|\t";
 
     public static void appendIndent() {
         indent = indent.concat(singleIndent);
