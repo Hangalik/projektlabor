@@ -7,16 +7,16 @@ import java.io.InputStreamReader;
 public class SkeletonHelper {
 
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
     private static String indent = "";
+    private static String singleIndent = "\t";
 
     public static void appendIndent() {
-        indent = indent.concat("\t");
+        indent = indent.concat(singleIndent);
     }
 
     public static void popIndent() {
         if (indent.length() > 0)
-            indent = indent.substring(0, indent.length() - 1);
+            indent = indent.substring(0, indent.length() - singleIndent.length());
     }
 
     public static String read() {

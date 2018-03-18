@@ -107,11 +107,10 @@ public class Field {
      * @param dir
      * @param neig
      */
-    public void setNeighbor(Direction dir,Field neig) {
+    public void setNeighbor(Direction dir, Field neig) {
     	SkeletonHelper.appendIndent();
     	SkeletonHelper.write("Field setNeighbor function.");
     	SkeletonHelper.popIndent();
-    	return;
     }
     
     /**

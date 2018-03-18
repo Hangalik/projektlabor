@@ -20,13 +20,12 @@ public class Target extends Field {
         SkeletonHelper.write("Target accept function.");
         SkeletonHelper.write("Is this the first box to reach this field? 1: Yes; 2: No");
         int responseNum = SkeletonHelper.readInt();
+
+        p.getField().removePushable();
+        this.setPushable(p);
+
         if(responseNum==1) {
-        	p.onTarget();
-            p.getField().removePushable();
-        }
-        else {
-	        p.getField().removePushable();
-	        this.setPushable(p);
+            p.onTarget();
         }
 
         SkeletonHelper.popIndent();

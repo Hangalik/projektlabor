@@ -43,45 +43,42 @@ public class Floor {
 
         SkeletonHelper.popIndent();
     }
-    
+
     /**
      * Inicializ�l� folyamat
      */
     public void Initialize() {
-    	SkeletonHelper.appendIndent();
-    	SkeletonHelper.write("Floor Initialize function");
-    	
-    	//Create
-    	Field f1=new Field();
-    	Field f2=new Field();
-    	Block b1=new Block();
-    	Block b2=new Block();
-    	Box bx1=new Box();
-    	Worker w1=new Worker();
-    	
-    	//SetNeighbor
-    	f1.setNeighbor(Direction.UP, f2);
-    	f2.setNeighbor(Direction.DOWN, f1);
-    	
-    	f1.setNeighbor(Direction.DOWN, b1);
-    	b1.setNeighbor(Direction.UP, f1);
-    	
-    	f1.setNeighbor(Direction.RIGHT, b2);
-    	b2.setNeighbor(Direction.LEFT, f2);
-    	
-    	//SetPushable
-    	f1.setPushable(bx1);
-    	f2.setPushable(w1);
-    	
-    	SkeletonHelper.popIndent();
-    	return;
-    	
-    	
-    
-    }  
-    
+        SkeletonHelper.appendIndent();
+        SkeletonHelper.write("Floor Initialize function");
+
+        //Create
+        Field f1 = new Field();
+        Field f2 = new Field();
+        Block b1 = new Block();
+        Block b2 = new Block();
+        Box bx1 = new Box();
+        Worker w1 = new Worker();
+
+        //SetNeighbor
+        f1.setNeighbor(Direction.UP, f2);
+        f2.setNeighbor(Direction.DOWN, f1);
+
+        f1.setNeighbor(Direction.DOWN, b1);
+        b1.setNeighbor(Direction.UP, f1);
+
+        f1.setNeighbor(Direction.RIGHT, b2);
+        b2.setNeighbor(Direction.LEFT, f2);
+
+        //SetPushable
+        f1.setPushable(bx1);
+        f2.setPushable(w1);
+
+        SkeletonHelper.popIndent();
+    }
+
     /**
      * a kapott objektumot kiveszi a megfigyelt objektumok közül. Ha láda, akkor többet nem teszteli, hogy mozdítható-e a játék vége szempontjából. Ha munkás, akkor nem kerül rá többet sor.
+     *
      * @param p
      */
     public void pushableDied(Pushable p) {

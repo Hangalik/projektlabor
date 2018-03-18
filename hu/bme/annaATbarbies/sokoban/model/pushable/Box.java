@@ -66,9 +66,7 @@ public class Box extends Pushable {
 
         SkeletonHelper.popIndent();
     }
-
-   
-
+    
     /**
      * igaz értékkel tér vissza, ha már biztosan nem lehet eltolni.
      * @return

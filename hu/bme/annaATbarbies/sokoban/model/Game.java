@@ -8,7 +8,7 @@ import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
  */
 public class Game {
 
-    private static Game ourInstance = new Game();
+    private static Game ourInstance;
 
     public static Game getInstance() {
         if (ourInstance == null) {
@@ -28,7 +28,6 @@ public class Game {
     	SkeletonHelper.write("Game start function.");
     	Floor.getInstance().Initialize();
     	SkeletonHelper.popIndent();
-    	return;
     }
 
     /**
