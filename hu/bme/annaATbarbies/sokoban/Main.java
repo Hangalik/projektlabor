@@ -9,12 +9,19 @@ import hu.bme.annaATbarbies.sokoban.model.field.Switch;
 import hu.bme.annaATbarbies.sokoban.model.field.Target;
 import hu.bme.annaATbarbies.sokoban.model.field.Trap;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
+import sun.rmi.runtime.Log;
 
 public class Main {
 
+    private static final Logger logger = Logger.getLogger(Main.class);
+
     public static void main(String[] args) {
         int menu;
+        //BasicConfigurator.configure();
         while (true) {
+            logger.debug("ujrakezdtünk");
             SkeletonHelper.write("What do you want to do?");
             SkeletonHelper.appendIndent();
             SkeletonHelper.write("Press 1 to start initialize.");
