@@ -122,4 +122,16 @@ public class Field {
         SkeletonHelper.write("Field setPushable function.");
         SkeletonHelper.popIndent();
     }
+
+    public void pourOil() {
+
+    }
+
+    public void pourHoney() {
+
+    }
+
+    public int getFriction() {
+        return 0;
+    }
 }

@@ -1,120 +1,154 @@
 package hu.bme.annaATbarbies.sokoban.model.pushable;
 
-import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.field.Field;
+import org.apache.log4j.Logger;
 
 public class Worker extends Pushable implements Controller {
+
+    private static final Logger logger = Logger.getLogger(Worker.class);
+    private static final int initialStrength = 10;
+
+    private enum WorkerState {
+        STEPPING, PUSHED_BY_BOX, PUSHED_BY_WORKER
+    }
+
+    private WorkerState workerState;
 	
 	//a jatekos lep
     @Override
     public void step(Direction dir) {
-        SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Worker step function.");
-        
-        Field neighbor = new Field().getNeigbor(Direction.UP);
+        logger.debug("step");
+
+        workerState = WorkerState.STEPPING;
+
+        Field neighbor = field.getNeigbor(dir);
         Pushable obstacle = neighbor.getObstacle();	//lekeri a szomszedos mezo tolhato objektumat
+
         if (obstacle == null) {
-            neighbor.accept(new Worker());			//ha nincs, akkor a szomszedos mezore lep
+            logger.debug("Senki nincs elotte, lepunk.");
+
+            neighbor.accept(this);			//ha nincs, akkor a szomszedos mezore lep
         } else {
-            obstacle.push(Direction.UP, new Worker());	//ha van, akkor eltolja
+            logger.debug("Akadaly, eltoljuk.");
+
+            obstacle.push(dir, this, initialStrength);	//ha van, akkor eltolja
 
             obstacle = neighbor.getObstacle();
             if (obstacle == null) {
-                neighbor.accept(new Worker());			//ha sikerult eltolnia, akkor a szomszedos mezore lephet
+                logger.debug("Most mar ures, lepunk.");
+
+                neighbor.accept(this);			//ha sikerult eltolnia, akkor a szomszedos mezore lephet
             }											//ha nem, akkor nem lep sehova
         }
-
-        SkeletonHelper.popIndent();
     }
 
     @Override
     public void gainPoint() {
-        SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Worker gainPoint function.");
-        SkeletonHelper.popIndent();
+        logger.debug("gainPoint");
+    }
+
+    @Override
+    public void lubricateOil() {
+        field.pourOil();
+    }
+
+    @Override
+    public void lubricateHoney() {
+        field.pourHoney();
     }
 
     /**
-     * Definiálja, hogy mi történik, ha egy láda tolta meg. Ekkor az állapota láda által tolttá változik.
+     * Definialja, hogy mi tortenik, ha egy lada tolta meg. Ekkor az allapota lada altal toltta valtozik.
      * @param dir
      * @param box
      */
     @Override
-    public void push(Direction dir, Box box) {
-    	SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Worker push function. Called when box pushed.");
+    public void push(Direction dir, Box box, int strength) {
+        logger.debug("push, strength valtozatlan");
+
+        workerState = WorkerState.PUSHED_BY_BOX;
         
-        Field neighbor = new Field().getNeigbor(Direction.UP);
-                
+        Field neighbor = field.getNeigbor(dir);
         Pushable obstacle = neighbor.getObstacle();	//lekeri a szomszedos mezo tolhato objektumat
+
         if (obstacle == null) {
-            neighbor.accept(new Worker());			//ha nincs, akkor a szomszedos mezore lep
+            logger.debug("Senki nincs elotte, lepunk.");
+
+            neighbor.accept(this);			//ha nincs, akkor a szomszedos mezore lep
         } else {
-            obstacle.push(Direction.UP, new Worker());	//ha van, akkor eltolja
+            logger.debug("Akadaly, eltoljuk.");
+
+            obstacle.push(dir, this, strength);	//ha van, akkor eltolja
 
             obstacle = neighbor.getObstacle();
             if (obstacle == null) {
-                neighbor.accept(new Worker());			//ha sikerult eltolnia, akkor a szomszedos mezore lephet
+                logger.debug("Most mar ures, lepunk.");
+
+                neighbor.accept(this);			//ha sikerult eltolnia, akkor a szomszedos mezore lephet
             }											//ha nem, akkor nem lep sehova
         }
-        
-        SkeletonHelper.popIndent();
     }
 
     /**
-     * Definiálja, hogy mi történik, ha egy munkás tolta meg.
+     * Definialja, hogy mi tortenik, ha egy munkas tolta meg.
      * @param dir
      * @param worker
      */
     @Override
-    public void push(Direction dir, Worker worker) {
-    	SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Worker push function. Called when worker pushed.");
+    public void push(Direction dir, Worker worker, int strength) {
+        logger.debug("push, strength valtozatlan");
+
+        workerState = WorkerState.PUSHED_BY_WORKER;
         
-        Field neighbor = new Field().getNeigbor(Direction.UP);
-                
+        Field neighbor = field.getNeigbor(Direction.UP);
         Pushable obstacle = neighbor.getObstacle();	//lekeri a szomszedos mezo tolhato objektumat
+
         if (obstacle == null) {
-            neighbor.accept(new Worker());			//ha nincs, akkor a szomszedos mezore lep
+            logger.debug("Senki nincs elotte, lepunk.");
+
+            neighbor.accept(this);			//ha nincs, akkor a szomszedos mezore lep
         } else {
-            obstacle.push(Direction.UP, new Worker());	//ha van, akkor eltolja
+            logger.debug("Akadaly, eltoljuk.");
+
+            obstacle.push(dir, this, strength);	//ha van, akkor eltolja
 
             obstacle = neighbor.getObstacle();
             if (obstacle == null) {
-                neighbor.accept(new Worker());			//ha sikerult eltolnia, akkor a szomszedos mezore lephet
+                logger.debug("Most mar ures, lepunk.");
+
+                neighbor.accept(this);			//ha sikerult eltolnia, akkor a szomszedos mezore lephet
             }											//ha nem, akkor nem lep sehova
         }
-        
-        SkeletonHelper.popIndent();
     }
 
     /**
-     * Definiálja, hogy mi történik, ha össze akarják nyomni.
-     * Ha az állapota az, hogy láda tolta, akkor megöli magát.
+     * Definialja, hogy mi tortenik, ha ossze akarjak nyomni.
+     * Ha az allapota az, hogy lada tolta, akkor megoli magat.
      * @param dir
      * @return
      */
     public boolean crush (Direction dir) {
-        SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Worker crush function.");
+        logger.debug("crush");
 
-        SkeletonHelper.write("What is pushing this worker? 1: It's stepping; 2: It's pushed by a Worker; 3: It's pushed by a Box");
-        int responseNum = SkeletonHelper.readInt();
-
-        boolean ret;
-        switch(responseNum) {
+        switch (workerState) {
             default:
-            case 1: ret = false;
-                break;
-            case 2: ret = new Worker().crush(Direction.DOWN);
-                break;
-            case 3: this.die();
-                ret = true;
-                break;
-        }
+            case STEPPING:
+                logger.debug("Nem hal meg.");
 
-        SkeletonHelper.popIndent();
-        return ret;
+                return false;
+
+            case PUSHED_BY_BOX:
+                logger.debug("Meghal, mert osszenyomjak.");
+
+                this.die();
+                return true;
+
+            case PUSHED_BY_WORKER:
+                logger.debug("Visszafele hivja a crusht.");
+
+                Field crushNeighbor = field.getNeigbor(dir);
+                return crushNeighbor.getObstacle().crush(dir);
+        }
     }
 }

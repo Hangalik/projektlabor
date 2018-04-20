@@ -4,16 +4,23 @@ import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.field.Block;
 import hu.bme.annaATbarbies.sokoban.model.field.Field;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Box;
+import hu.bme.annaATbarbies.sokoban.model.pushable.Controller;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
 
+import java.util.ArrayList;
+
 /**
- * A pályát reprezentálja. Ellenőrzi, hogy mikor ér véget a játék, valamint az aktív játékosnak pontot ad.
+ * A palyat reprezentalja. Ellenorzi, hogy mikor er veget a jatek, valamint az aktiv jatekosnak pontot ad.
  * --singleton--
  */
 public class Floor {
 
     private static Floor ourInstance;
+
+    private ArrayList<Field> fields;
+    private ArrayList<Controller> workers;
+    private ArrayList<Box> boxes;
 
     public static Floor getInstance() {
         if (ourInstance == null) {
@@ -23,17 +30,22 @@ public class Floor {
     }
 
     private Floor() {
+        fields = new ArrayList<>();
+        workers = new ArrayList<>();
+        boxes = new ArrayList<>();
     }
 
+
+
     /**
-     * Minden lépésnél ellenőrzi, hogy véget ért-e a játék. Ha igen, akkor meghívja a Game osztály finish() metódusát.
+     * Minden lepesnel ellenorzi, hogy veget ert-e a jatek. Ha igen, akkor meghivja a Game osztaly finish() metodusat.
      */
     public void gameOver() {
 
     }
 
     /**
-     * meghívja az éppen aktív játékos gainPoint() metódusát.
+     * meghivja az eppen aktiv jatekos gainPoint() metodusat.
      */
     public void rewardCurrentPlayer() {
         SkeletonHelper.appendIndent();
@@ -45,14 +57,13 @@ public class Floor {
     }
 
     /**
-     * Inicializ�l� folyamat
+     * Inicializalo folyamat
      */
     public void Initialize() {
-        SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Floor Initialize function");
 
+        //TODO: Initialize...
         //Create
-        Field f1 = new Field();
+        /*Field f1 = new Field();
         Field f2 = new Field();
         Block b1 = new Block();
         Block b2 = new Block();
@@ -71,19 +82,15 @@ public class Floor {
 
         //SetPushable
         f1.setPushable(bx1);
-        f2.setPushable(w1);
-
-        SkeletonHelper.popIndent();
+        f2.setPushable(w1);*/
     }
 
     /**
-     * a kapott objektumot kiveszi a megfigyelt objektumok közül. Ha láda, akkor többet nem teszteli, hogy mozdítható-e a játék vége szempontjából. Ha munkás, akkor nem kerül rá többet sor.
+     * a kapott objektumot kiveszi a megfigyelt objektumok kozul. Ha lada, akkor tobbet nem teszteli, hogy mozdithato-e a jatek vege szempontjabol. Ha munkas, akkor nem kerul ra tobbet sor.
      *
      * @param p
      */
     public void pushableDied(Pushable p) {
-        SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Floor pushableDied function.");
-        SkeletonHelper.popIndent();
+
     }
 }

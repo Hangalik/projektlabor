@@ -19,7 +19,6 @@ public class Main {
 
     public static void main(String[] args) {
         int menu;
-        //BasicConfigurator.configure();
         while (true) {
             logger.debug("ujrakezdtünk");
             SkeletonHelper.write("What do you want to do?");
