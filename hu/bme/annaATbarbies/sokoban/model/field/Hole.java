@@ -1,33 +1,31 @@
 package hu.bme.annaATbarbies.sokoban.model.field;
 
+import org.apache.log4j.Logger;
+
 import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 
 /**
- * A játékban lévő lyukat reprezentálja. Definiálja, hogy mit történik, ha a lyukra lép egy tolható objektum.
+ * A jatekban levo lyukat reprezentalja. Definialja, hogy mi tortenik, ha a lyukra lep egy tolhato objektum.
  */
 public class Hole extends Field {
-
+	Logger logger = Logger.getLogger(Hole.class);
     /**
-     * leveszi a rátolódó tolható objektumot a pályáról.
+     * leveszi a ratolt tolhato objektumot a palyarol.
      * @param p
      */
     @Override
     public void accept(Pushable p) {
-    	SkeletonHelper.appendIndent();
-    	SkeletonHelper.write("Hole accept function.");
+    	logger.info("A lyuk megoli a ratolt tolhato objektumot.");
     	p.die();
-    	SkeletonHelper.popIndent();
     }
     
     /**
-     * A lyuk a lekérdezésre mindig null értékkel tér vissza
+     * A lyuk a lekerdezesre mindig null ertekkel ter vissza
      */
     @Override
     public Pushable getObstacle() {
-		SkeletonHelper.appendIndent();
-		SkeletonHelper.write("Hole getObstacle function.");
-		SkeletonHelper.popIndent();
+		logger.info("A lyuk mezo nem ad vissza tolhato objektumot.");
 		return null;
 	}
 }

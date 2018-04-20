@@ -1,36 +1,35 @@
 package hu.bme.annaATbarbies.sokoban.model.field;
 
+import org.apache.log4j.Logger;
+
 import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 
 /**
- * A játékban lévő fal elemeket reprezentálja.
- * Definiálja, hogy mi történik, ha valami rálép.
+ * A jatekban levo fal elemeket reprezentalja.
+ * Definialja, hogy mi tortenik, ha valami ralep.
  */
 public class Block extends Field {
 
+	Logger logger = Logger.getLogger(Block.class);
     /**
-     * nem helyezi magára a tolható objektumot, mivel a falelemen nem állhat semmi.
-     * meghívja az ide lépni akaró objektum crush
+     * nem helyezi magara a tolhato objektumot, mivel a falelemen nem allhat semmi.
+     * meghivja az ide lepni akaro objektum crush fuggvenyet
      * @param p
      */
     @Override
     public void accept(Pushable p) {
-    	SkeletonHelper.appendIndent();
-    	SkeletonHelper.write("Block accept function.");
-    	p.crush(Direction.DOWN);
-    	SkeletonHelper.popIndent();
+    	logger.info("A fal elem mezo nem fogadta el a ratolt tolhato objektumot.");
+    	//p.crush(dir);	//hmmmmmm
     }
     
     /**
-     * Visszatérése null, mivel soha nem állhat rajta tolható objektum
+     * Visszaterese null, mivel soha nem allhat rajta tolhato objektum
      */
     @Override
     public Pushable getObstacle() {
-        SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Block getObstacle function.");
-        SkeletonHelper.popIndent();
+        logger.info("A fal elem mezo nem ad vissza tolhato objektumot.");
         return null;
     }
 }
