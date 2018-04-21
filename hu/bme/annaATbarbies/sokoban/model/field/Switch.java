@@ -24,7 +24,7 @@ public class Switch extends Field {
     @Override
     public void accept(Pushable p) {
     	super.accept(p);
-    	logger.info("A kapcsolo mezo meghivja a ratolt objektum switchMe fuggvenyet.");
+    	logger.debug("A kapcsolo mezo meghivja a ratolt objektum switchMe fuggvenyet.");
     	p.switchMe(this);
     }
 
@@ -32,7 +32,7 @@ public class Switch extends Field {
      * meghivja a trap osztaly open vagy close metodusat, ami atvaltja a csapda allapotat.
      */
     public void switch_() {
-    	logger.info("A kapcsolo mezo allapotot valtott.");
+    	logger.debug("A kapcsolo mezo allapotot valtott.");
     	if(trapOpened) {
     		trap.close();
     		trapOpened = false;
@@ -49,7 +49,7 @@ public class Switch extends Field {
     @Override
     public void removePushable() {
     	if(pushable != null) {
-    		logger.info("A kapcsolo mezo meghivja a rajta levo objektum switchMe fuggvenyet.");
+    		logger.debug("A kapcsolo mezo meghivja a rajta levo objektum switchMe fuggvenyet.");
     		pushable.switchMe(this);
     	}
     	super.removePushable();

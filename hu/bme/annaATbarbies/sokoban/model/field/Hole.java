@@ -16,7 +16,7 @@ public class Hole extends Field {
      */
     @Override
     public void accept(Pushable p) {
-    	logger.info("A lyuk megoli a ratolt tolhato objektumot.");
+    	logger.debug("A lyuk megoli a ratolt tolhato objektumot.");
     	p.die();
     }
     
@@ -25,7 +25,7 @@ public class Hole extends Field {
      */
     @Override
     public Pushable getObstacle() {
-		logger.info("A lyuk mezo nem ad vissza tolhato objektumot.");
+		logger.debug("A lyuk mezo nem ad vissza tolhato objektumot.");
 		return null;
 	}
 }

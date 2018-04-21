@@ -20,7 +20,7 @@ public class Target extends Field {
     @Override
     public void accept(Pushable p) {
     	super.accept(p);
-    	logger.info("A celpont mezo meghivja a ratolt objektum onTarget metodusat");
+    	logger.debug("A celpont mezo meghivja a ratolt objektum onTarget metodusat");
     	p.onTarget();
     }
 }

@@ -20,7 +20,7 @@ public class Block extends Field {
      */
     @Override
     public void accept(Pushable p) {
-    	logger.info("A fal elem mezo nem fogadta el a ratolt tolhato objektumot.");
+    	logger.debug("A fal elem mezo nem fogadta el a ratolt tolhato objektumot.");
     	//p.crush(dir);	//hmmmmmm
     }
     
@@ -29,7 +29,7 @@ public class Block extends Field {
      */
     @Override
     public Pushable getObstacle() {
-        logger.info("A fal elem mezo nem ad vissza tolhato objektumot.");
+        logger.debug("A fal elem mezo nem ad vissza tolhato objektumot.");
         return null;
     }
 }

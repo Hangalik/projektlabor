@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.Direction;
+import hu.bme.annaATbarbies.sokoban.model.SurfaceContamination;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Box;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
@@ -22,17 +23,18 @@ public class Field {
 	//Field attributumok
 	protected Pushable pushable;													//A mezon tartozkodo tolhato objektum
 	protected Map<Direction, Field> neighbor =  new HashMap<Direction, Field>();	//mezo szomszedjai "Direction" iranyokban
-	protected int friction = 0;														//a mezo surlodasi tenyezoje
+
+	protected SurfaceContamination contamination = SurfaceContamination.NONE;												//a mezo surlodasi tenyezoje
     /**
      * torli a mezon levo tolhato objektumot.
      */
     public void removePushable() {
         if(pushable != null) {
         	pushable = null;
-        	logger.info("Tolhato objektum torolve.");
+        	logger.debug("Tolhato objektum torolve.");
         }
         else {
-        	logger.info("Nincs tolhato objektum, amit torolni lehetne.");
+        	logger.debug("Nincs tolhato objektum, amit torolni lehetne.");
         }
     }
 
@@ -42,11 +44,14 @@ public class Field {
      */
     public void accept(Pushable p) {
         if(pushable == null) {
-        	pushable = p;
-        	logger.info("A mezo elfogadta a tolhato objektumot.");
+        	logger.debug("A mezo elfogadta a tolhato objektumot.");
+        	p.getField().removePushable();
+        	this.setPushable(p);
+        	//A pushable-eknek nincs setField metodusuk
+        	//p.setField(this);
         }
         else {
-        	logger.info("A mezo nem fogadta el a tolhato objektumot.");
+        	logger.debug("A mezo nem fogadta el a tolhato objektumot.");
         }
     }
 
@@ -55,7 +60,7 @@ public class Field {
      * @return
      */
     public Pushable getObstacle() {
-        logger.info("Lekertek a mezotol a tolhato objektumat.");
+        logger.debug("Lekertek a mezotol a tolhato objektumat.");
         return pushable;
     }
 
@@ -65,7 +70,7 @@ public class Field {
      * @return
      */
     public Field getNeigbor(Direction dir) {
-        logger.info("Lekertek a mezotol a szomszedjat.");
+        logger.debug("Lekertek a mezotol a szomszedjat.");
         return neighbor.get(dir);
     }
     
@@ -75,7 +80,7 @@ public class Field {
      * @param neig
      */
     public void setNeighbor(Direction dir, Field neig) {
-    	logger.info("Mezonek szomszed lett beallitva.");
+    	logger.debug("Mezonek szomszed lett beallitva.");
     	neighbor.put(dir, neig);
     }
     
@@ -84,10 +89,11 @@ public class Field {
      * Csak palyaepitesnel hasznalhato
      * @param pushable
      */
-    public void setPushable(Pushable pushable) {
+    public void setPushable(Pushable p) {
     	if(pushable == null) {
-        	pushable = pushable;
-        	logger.info("A mezore tolhato objektum kerult.");
+    		logger.debug("A mezore tolhato objektum kerult.");
+        	pushable = p;
+        	//p.setField(this);
         }
         else {
         	logger.debug("A mezon mar van tolhato objektum.");
@@ -95,12 +101,17 @@ public class Field {
     }
     
     public void pourOil() {
-    	logger.info("Olajjal lett osszekenve a mezo.");
-    	friction--;
+    	logger.debug("Olajjal lett osszekenve a mezo.");
+    	contamination = SurfaceContamination.OIL;
     }
     
     public void pourHoney() {
-    	logger.info("Mezzel lett osszekenve a mezo.");
-    	friction++;
+    	logger.debug("Mezzel lett osszekenve a mezo.");
+    	contamination = SurfaceContamination.HONEY;
+    }
+    
+    public SurfaceContamination getContamination() {
+    	logger.debug("A mezotol le lett kerdezve a szennyezetsege.");
+    	return contamination;
     }
 }

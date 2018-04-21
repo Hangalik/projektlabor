@@ -23,38 +23,35 @@ public class Trap extends Field {
     @Override
     public void accept(Pushable p) {
     	if(isOpened) {
-    		logger.info("A csapda nyitva, ezert a ratolt objektum meghal.");
+    		logger.debug("A csapda nyitva, ezert a ratolt objektum meghal.");
     		p.die();
     	}
     	else {
-    		logger.info("A csapda zarva, egyszeru mezokent viselkedik.");
+    		logger.debug("A csapda zarva, egyszeru mezokent viselkedik.");
     		super.accept(p);
     	}
-    }
-    
-    /**
-     * Lekerdezi a csapda allapotat, ha nem aktiv, akkor
-     * visszaadja azt a tolhato elemet, ami a lepni kivano elem elott van, tehat amit el kell tolnia.
-     */
-    @Override
-    public Pushable getObstacle() {
-    	return super.getObstacle();	//biztos hogy kell ez?
     }
 
     /**
      * kinyitja a csapdat, megoli aki rajta van
      */
     public void open() {
-    	logger.info("A csapda kinyilt.");
+    	logger.debug("A csapda kinyilt.");
     	isOpened = true;
-    	pushable.die();
+    	if(pushable != null) {
+    		logger.debug("A csapdan volt tolhato objektum.");
+    		pushable.die();    		
+    	}
+    	else {
+    		logger.debug("A csapdan nem volt tolhato objektum.");
+    	}
     }
 
     /**
      * bezarja a csapdat
      */
     public void close() {
-    	logger.info("A csapda bezarult.");
+    	logger.debug("A csapda bezarult.");
     	isOpened = false;
     }
 }
