@@ -1,16 +1,12 @@
 package hu.bme.annaATbarbies.sokoban.model.field;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-
-import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.SurfaceContamination;
-import hu.bme.annaATbarbies.sokoban.model.pushable.Box;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
-import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
+import org.apache.log4j.Logger;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Egy altalanos mezo, amin tolhato objektum lehet.
@@ -85,7 +81,7 @@ public class Field {
     /**
      * Rahelyezi a tolhato targyat a mezore
      * Csak palyaepitesnel hasznalhato
-     * @param pushable
+     * @param p
      */
     public void setPushable(Pushable p) {
     	if(pushable == null) {
@@ -111,17 +107,5 @@ public class Field {
     public int getFriction() {
     	logger.debug("A mezotol le lett kerdezve a surlodasi tenyezoje.");
     	return contamination.getValue();
-    }
-
-    public void pourOil() {
-
-    }
-
-    public void pourHoney() {
-
-    }
-
-    public int getFriction() {
-        return 0;
     }
 }
