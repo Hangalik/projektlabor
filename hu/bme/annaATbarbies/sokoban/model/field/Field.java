@@ -47,8 +47,6 @@ public class Field {
         	logger.debug("A mezo elfogadta a tolhato objektumot.");
         	p.getField().removePushable();
         	this.setPushable(p);
-        	//A pushable-eknek nincs setField metodusuk
-        	//p.setField(this);
         }
         else {
         	logger.debug("A mezo nem fogadta el a tolhato objektumot.");
@@ -93,7 +91,7 @@ public class Field {
     	if(pushable == null) {
     		logger.debug("A mezore tolhato objektum kerult.");
         	pushable = p;
-        	//p.setField(this);
+        	p.setField(this);
         }
         else {
         	logger.debug("A mezon mar van tolhato objektum.");
@@ -109,9 +107,9 @@ public class Field {
     	logger.debug("Mezzel lett osszekenve a mezo.");
     	contamination = SurfaceContamination.HONEY;
     }
-    
-    public SurfaceContamination getContamination() {
-    	logger.debug("A mezotol le lett kerdezve a szennyezetsege.");
-    	return contamination;
+        
+    public int getFriction() {
+    	logger.debug("A mezotol le lett kerdezve a surlodasi tenyezoje.");
+    	return contamination.getValue();
     }
 }

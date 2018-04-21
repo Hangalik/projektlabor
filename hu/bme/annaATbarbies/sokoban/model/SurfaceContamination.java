@@ -11,4 +11,7 @@ public enum SurfaceContamination {
 	private SurfaceContamination(int val) {
 		this.val = val;
 	}
+	public int getValue() {
+		return val;
+	}
 }
