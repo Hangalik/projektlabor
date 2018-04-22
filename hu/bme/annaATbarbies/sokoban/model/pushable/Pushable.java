@@ -2,7 +2,8 @@ package hu.bme.annaATbarbies.sokoban.model.pushable;
 
 import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.Floor;
-import hu.bme.annaATbarbies.sokoban.model.field.*;
+import hu.bme.annaATbarbies.sokoban.model.field.Field;
+import hu.bme.annaATbarbies.sokoban.model.field.Switch;
 import org.apache.log4j.Logger;
 
 /**
@@ -18,6 +19,7 @@ public abstract class Pushable {
 
     /**
      * Definialja, hogy mi tortenik, ha egy lada tolta meg.
+     *
      * @param dir
      * @param box
      */
@@ -25,6 +27,7 @@ public abstract class Pushable {
 
     /**
      * Definialja, hogy mi tortenik, ha egy munkas tolta meg.
+     *
      * @param dir
      * @param worker
      */
@@ -32,12 +35,13 @@ public abstract class Pushable {
 
     /**
      * Definialja, hogy mi tortenik, ha ossze akarjak nyomni.
+     *
      * @param dir
      * @return
      */
     public boolean crush(Direction dir) {
         logger.debug("Crush visszaad false.");
-    	return false;	//a worker irja felul, alap esetben semmi sem osszenyomhato
+        return false;    //a worker irja felul, alap esetben semmi sem osszenyomhato
     }
 
     public void setField(Field field) {
@@ -52,18 +56,19 @@ public abstract class Pushable {
      * TODO: No description in the doc...
      */
     public void die() {
-        field.removePushable();	//eltavolitja a mezororol
-        Floor.getInstance().pushableDied(this);	//szol a palyanak, hogy egy jatekossal kevesebb van
+        field.removePushable();    //eltavolitja a mezororol
+        Floor.getInstance().pushableDied(this);    //szol a palyanak, hogy egy jatekossal kevesebb van
     }
 
     /**
      * meghivja a Switch tipusu objektum switch() metodusat, ha egy doboz ramegy a kapcsolora.
      * Itt nem csinal semmit. Amelyik leszarmazott akar valamit, az felulirja.
+     *
      * @param s
      */
     public void switchMe(Switch s) {
         logger.debug("switchMe");
-    	//nem csinal semmit, a box fogja megvalositani
+        //nem csinal semmit, a box fogja megvalositani
     }
 
     /**
@@ -72,6 +77,6 @@ public abstract class Pushable {
      */
     public void onTarget() {
         logger.debug("onTarget");
-    	//nem csinal semmit, a box fogja megvalositani
+        //nem csinal semmit, a box fogja megvalositani
     }
 }

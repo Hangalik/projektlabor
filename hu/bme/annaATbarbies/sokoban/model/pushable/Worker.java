@@ -14,8 +14,8 @@ public class Worker extends Pushable implements Controller {
     }
 
     private WorkerState workerState;
-	
-	//a jatekos lep
+
+    //a jatekos lep
     @Override
     public void step(Direction dir) {
         logger.debug("step");
@@ -23,23 +23,23 @@ public class Worker extends Pushable implements Controller {
         workerState = WorkerState.STEPPING;
 
         Field neighbor = field.getNeighbor(dir);
-        Pushable obstacle = neighbor.getObstacle();	//lekeri a szomszedos mezo tolhato objektumat
+        Pushable obstacle = neighbor.getObstacle();    //lekeri a szomszedos mezo tolhato objektumat
 
         if (obstacle == null) {
             logger.debug("Senki nincs elotte, lepunk.");
 
-            neighbor.accept(this);			//ha nincs, akkor a szomszedos mezore lep
+            neighbor.accept(this);            //ha nincs, akkor a szomszedos mezore lep
         } else {
             logger.debug("Akadaly, eltoljuk.");
 
-            obstacle.push(dir, this, initialStrength);	//ha van, akkor eltolja
+            obstacle.push(dir, this, initialStrength);    //ha van, akkor eltolja
 
             obstacle = neighbor.getObstacle();
             if (obstacle == null) {
                 logger.debug("Most mar ures, lepunk.");
 
-                neighbor.accept(this);			//ha sikerult eltolnia, akkor a szomszedos mezore lephet
-            }											//ha nem, akkor nem lep sehova
+                neighbor.accept(this);            //ha sikerult eltolnia, akkor a szomszedos mezore lephet
+            }                                            //ha nem, akkor nem lep sehova
         }
     }
 
@@ -60,6 +60,7 @@ public class Worker extends Pushable implements Controller {
 
     /**
      * Definialja, hogy mi tortenik, ha egy lada tolta meg. Ekkor az allapota lada altal toltta valtozik.
+     *
      * @param dir
      * @param box
      */
@@ -68,30 +69,31 @@ public class Worker extends Pushable implements Controller {
         logger.debug("push, strength valtozatlan");
 
         workerState = WorkerState.PUSHED_BY_BOX;
-        
+
         Field neighbor = field.getNeighbor(dir);
-        Pushable obstacle = neighbor.getObstacle();	//lekeri a szomszedos mezo tolhato objektumat
+        Pushable obstacle = neighbor.getObstacle();    //lekeri a szomszedos mezo tolhato objektumat
 
         if (obstacle == null) {
             logger.debug("Senki nincs elotte, lepunk.");
 
-            neighbor.accept(this);			//ha nincs, akkor a szomszedos mezore lep
+            neighbor.accept(this);            //ha nincs, akkor a szomszedos mezore lep
         } else {
             logger.debug("Akadaly, eltoljuk.");
 
-            obstacle.push(dir, this, strength);	//ha van, akkor eltolja
+            obstacle.push(dir, this, strength);    //ha van, akkor eltolja
 
             obstacle = neighbor.getObstacle();
             if (obstacle == null) {
                 logger.debug("Most mar ures, lepunk.");
 
-                neighbor.accept(this);			//ha sikerult eltolnia, akkor a szomszedos mezore lephet
-            }											//ha nem, akkor nem lep sehova
+                neighbor.accept(this);            //ha sikerult eltolnia, akkor a szomszedos mezore lephet
+            }                                            //ha nem, akkor nem lep sehova
         }
     }
 
     /**
      * Definialja, hogy mi tortenik, ha egy munkas tolta meg.
+     *
      * @param dir
      * @param worker
      */
@@ -100,35 +102,36 @@ public class Worker extends Pushable implements Controller {
         logger.debug("push, strength valtozatlan");
 
         workerState = WorkerState.PUSHED_BY_WORKER;
-        
+
         Field neighbor = field.getNeighbor(dir);
-        Pushable obstacle = neighbor.getObstacle();	//lekeri a szomszedos mezo tolhato objektumat
+        Pushable obstacle = neighbor.getObstacle();    //lekeri a szomszedos mezo tolhato objektumat
 
         if (obstacle == null) {
             logger.debug("Senki nincs elotte, lepunk.");
 
-            neighbor.accept(this);			//ha nincs, akkor a szomszedos mezore lep
+            neighbor.accept(this);            //ha nincs, akkor a szomszedos mezore lep
         } else {
             logger.debug("Akadaly, eltoljuk.");
 
-            obstacle.push(dir, this, strength);	//ha van, akkor eltolja
+            obstacle.push(dir, this, strength);    //ha van, akkor eltolja
 
             obstacle = neighbor.getObstacle();
             if (obstacle == null) {
                 logger.debug("Most mar ures, lepunk.");
 
-                neighbor.accept(this);			//ha sikerult eltolnia, akkor a szomszedos mezore lephet
-            }											//ha nem, akkor nem lep sehova
+                neighbor.accept(this);            //ha sikerult eltolnia, akkor a szomszedos mezore lephet
+            }                                            //ha nem, akkor nem lep sehova
         }
     }
 
     /**
      * Definialja, hogy mi tortenik, ha ossze akarjak nyomni.
      * Ha az allapota az, hogy lada tolta, akkor megoli magat.
+     *
      * @param dir
      * @return
      */
-    public boolean crush (Direction dir) {
+    public boolean crush(Direction dir) {
         logger.debug("crush");
 
         switch (workerState) {

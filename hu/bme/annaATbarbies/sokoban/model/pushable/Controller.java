@@ -12,6 +12,7 @@ public interface Controller {
      * A metodus meghivja annak a mezonek, a getNeighbor(Direction) metodusat, amelyen a jatekos epp all.
      * Ez a metodus visszater azzal a szomszedjaval, amire a jatekos lepni akar.
      * Ekkor a jatekos meghivja annak a mezonek az accept(Worker) metodusat.
+     *
      * @param dir
      */
     void step(Direction dir);

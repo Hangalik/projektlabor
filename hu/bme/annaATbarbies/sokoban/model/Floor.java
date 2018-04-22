@@ -61,7 +61,7 @@ public class Floor {
 
         boolean anyBoxPushable = false;
         for (Box box : boxes) {
-            if(box.amIPushable()) {
+            if (box.amIPushable()) {
                 anyBoxPushable = true;
             }
         }
@@ -286,7 +286,7 @@ public class Floor {
 
     public void list(String type) {
         if (type.equals("boxes")) {
-        	int k = 0;
+            int k = 0;
             for (int i = 0; i < boxes.size(); i++) {
                 //koordinatakat kikeressuk
                 for (int x = 0; x < floor.length; x++) {
@@ -307,7 +307,7 @@ public class Floor {
                 //koordinatakat kikeressuk
                 for (int x = 0; x < floor.length; x++) {
                     for (int y = 0; y < floor[x].length; y++) {
-                        if (((Worker)workers.get(i)).getField().equals(floor[x][y])) {
+                        if (((Worker) workers.get(i)).getField().equals(floor[x][y])) {
                             System.out.print("player_" + k++ + "\talive\t" + x + " " + y);
                         }
                     }
@@ -323,7 +323,7 @@ public class Floor {
                 for (int x = 0; x < floor.length; x++) {
                     for (int y = 0; y < floor[x].length; y++) {
                         if (field.equals(floor[x][y])) {
-                            System.out.print(x + " " + y + "\t" + field.getClass().toString() + " " + field.getContamination() + " " +field.getState());
+                            System.out.print(x + " " + y + "\t" + field.getClass().toString() + " " + field.getContamination() + " " + field.getState());
                         }
                     }
                 }
