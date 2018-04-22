@@ -55,6 +55,12 @@ public class Switch extends Field {
     		pushable.switchMe(this);
     	}
     	super.removePushable();
-    	
+    }
+    /*
+     * lekeri az allapotat
+     * */
+    @Override
+    public String getState() {
+    	return trapOpened? "Flicked On":"Flicked Off";
     }
 }

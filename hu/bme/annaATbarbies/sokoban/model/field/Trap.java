@@ -54,4 +54,11 @@ public class Trap extends Field {
     	logger.debug("A csapda bezarult.");
     	isOpened = false;
     }
+    /*
+     * lekeri az allapotat
+     * */
+    @Override
+    public String getState() {
+    	return isOpened?"Opened":"Closed";
+    }
 }

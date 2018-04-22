@@ -118,4 +118,7 @@ public class Field {
     public String getContamination() {
         return contamination.toString();
     }
+    public String getState() {
+    	return "";
+    }
 }

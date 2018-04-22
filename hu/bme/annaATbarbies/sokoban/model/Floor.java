@@ -24,7 +24,8 @@ public class Floor {
     private ArrayList<Field> fields;
     private ArrayList<Controller> workers;
     private ArrayList<Box> boxes;
-    private ArrayList<Controller> dead;
+    private ArrayList<Controller> deadWorkers;
+    private ArrayList<Pushable> deadBoxes;
     private int activeWorker;
 
     private Field floor[][];
@@ -40,7 +41,8 @@ public class Floor {
         fields = new ArrayList<>();
         workers = new ArrayList<>();
         boxes = new ArrayList<>();
-        dead = new ArrayList<>();
+        deadWorkers = new ArrayList<>();
+        deadBoxes = new ArrayList<>();
     }
 
 
@@ -255,7 +257,8 @@ public class Floor {
         workers.clear();
         boxes.clear();
         fields.clear();
-        dead.clear();
+        deadWorkers.clear();
+        deadBoxes.clear();
         floor = null;
     }
 
@@ -268,13 +271,14 @@ public class Floor {
         for (int i = 0; i < workers.size(); i++) {
             if (workers.get(i).equals(p)) {
                 Controller removed = workers.remove(i);
-                dead.add(removed);
+                deadWorkers.add(removed);
                 logger.debug("Munkas meghalt");
             }
         }
         for (int i = 0; i < boxes.size(); i++) {
             if (boxes.get(i).equals(p)) {
-                boxes.remove(i);
+                Pushable removed = boxes.remove(i);
+                deadBoxes.add(removed);
                 logger.debug("Doboz eltunt");
             }
         }
@@ -282,16 +286,20 @@ public class Floor {
 
     public void list(String type) {
         if (type.equals("boxes")) {
+        	int k = 0;
             for (int i = 0; i < boxes.size(); i++) {
                 //koordinatakat kikeressuk
                 for (int x = 0; x < floor.length; x++) {
                     for (int y = 0; y < floor[x].length; y++) {
                         if ((boxes.get(i)).getField().equals(floor[x][y])) {
-                            System.out.print("box_" + i + "\talive\t" + x + " " + y);
+                            System.out.print("box_" + k++ + "\talive\t" + x + " " + y);
                         }
                     }
                 }
                 System.out.println();
+            }
+            for (int i = 0; i < deadBoxes.size(); i++) {
+                System.out.println("box_" + k++ + "\tdead");
             }
         } else if (type.equals("workers")) {
             int k = 0;
@@ -306,7 +314,7 @@ public class Floor {
                 }
                 System.out.println();
             }
-            for (int i = 0; i < dead.size(); i++) {
+            for (int i = 0; i < deadWorkers.size(); i++) {
                 System.out.println("player_" + k++ + "\tdead");
             }
         } else if (type.equals("fields")) {
@@ -315,7 +323,7 @@ public class Floor {
                 for (int x = 0; x < floor.length; x++) {
                     for (int y = 0; y < floor[x].length; y++) {
                         if (field.equals(floor[x][y])) {
-                            System.out.print(x + " " + y + "\t" + field.getClass().toString() + " " + field.getContamination());
+                            System.out.print(x + " " + y + "\t" + field.getClass().toString() + " " + field.getContamination() + " " +field.getState());
                         }
                     }
                 }
