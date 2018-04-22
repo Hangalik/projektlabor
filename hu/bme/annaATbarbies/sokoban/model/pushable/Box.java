@@ -79,7 +79,7 @@ public class Box extends Pushable {
         } else {
             logger.debug("Akadaly, eltoljuk.");
 
-            obstacle.push(dir, this, strength);
+            obstacle.push(dir, this, remainingStrength);
 
             obstacle = neighbor.getObstacle();
             if (obstacle == null) {

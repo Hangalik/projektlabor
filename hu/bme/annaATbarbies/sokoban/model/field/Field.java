@@ -114,4 +114,8 @@ public class Field {
     	logger.debug("A mezotol le lett kerdezve a surlodasi tenyezoje.");
     	return contamination.getValue();
     }
+
+    public String getContamination() {
+        return contamination.toString();
+    }
 }

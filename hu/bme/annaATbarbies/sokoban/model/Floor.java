@@ -190,6 +190,8 @@ public class Floor {
         }
     }
 
+
+    //berakja a fieldsbe a kapottat, majd osszekeni ha kell es beallitja a szomszedokat
     private void placeField(Field f, String args[]) {
         if (f == null) return;
 
@@ -231,6 +233,7 @@ public class Floor {
         }
     }
 
+    //nem rakja bele a workersbe vagy boxesba a kapottat!!, osszekoti a fielddel
     private void placePushable(Pushable p, String args[]) {
         if (p == null) return;
 
@@ -252,6 +255,7 @@ public class Floor {
         workers.clear();
         boxes.clear();
         fields.clear();
+        dead.clear();
         floor = null;
     }
 
@@ -279,6 +283,7 @@ public class Floor {
     public void list(String type) {
         if (type.equals("boxes")) {
             for (int i = 0; i < boxes.size(); i++) {
+                //koordinatakat kikeressuk
                 for (int x = 0; x < floor.length; x++) {
                     for (int y = 0; y < floor[x].length; y++) {
                         if ((boxes.get(i)).getField().equals(floor[x][y])) {
@@ -291,6 +296,7 @@ public class Floor {
         } else if (type.equals("workers")) {
             int k = 0;
             for (int i = 0; i < workers.size(); i++) {
+                //koordinatakat kikeressuk
                 for (int x = 0; x < floor.length; x++) {
                     for (int y = 0; y < floor[x].length; y++) {
                         if (((Worker)workers.get(i)).getField().equals(floor[x][y])) {
@@ -305,10 +311,12 @@ public class Floor {
             }
         } else if (type.equals("fields")) {
             for (Field field : fields) {
+                //koordinatakat kikeressuk
                 for (int x = 0; x < floor.length; x++) {
                     for (int y = 0; y < floor[x].length; y++) {
-                        if (field.equals(floor[x][y]))
-                            System.out.print(x + " " + y + "\t" + field.getClass().toString() + " ");
+                        if (field.equals(floor[x][y])) {
+                            System.out.print(x + " " + y + "\t" + field.getClass().toString() + " " + field.getContamination());
+                        }
                     }
                 }
                 System.out.println();

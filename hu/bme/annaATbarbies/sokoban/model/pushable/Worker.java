@@ -101,7 +101,7 @@ public class Worker extends Pushable implements Controller {
 
         workerState = WorkerState.PUSHED_BY_WORKER;
         
-        Field neighbor = field.getNeighbor(Direction.UP);
+        Field neighbor = field.getNeighbor(dir);
         Pushable obstacle = neighbor.getObstacle();	//lekeri a szomszedos mezo tolhato objektumat
 
         if (obstacle == null) {
