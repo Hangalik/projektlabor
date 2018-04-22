@@ -12,15 +12,22 @@ public class Target extends Field {
 	Logger logger = Logger.getLogger(Target.class);
 
     /**
-     * meghivja a raleptetett tolhato objektum onTarget() metodusat,
+     * meghivja a raltett tolhato objektum onTarget() metodusat,
      * ami ha ladan hivodott meg, eltunteti a ladat es pontot ad a jelenlegi jatekosnak
      * es innentol a Target mezo Fieldkent viselkedik
      * @param p
      */
-    @Override
-    public void accept(Pushable p) {
-    	super.accept(p);
-    	logger.debug("A celpont mezo meghivja a ratolt objektum onTarget metodusat");
-    	p.onTarget();
+	@Override
+    public void setPushable(Pushable p) {
+    	if(pushable == null) {
+    		logger.debug("A mezore tolhato objektum kerult.");
+        	pushable = p;
+        	p.setField(this);
+        	logger.debug("A celpont mezo meghivja a ratolt objektum onTarget metodusat");
+        	p.onTarget();
+        }
+        else {
+        	logger.debug("A mezon mar van tolhato objektum.");
+        }
     }
 }

@@ -19,17 +19,6 @@ public class Switch extends Field {
 		this.trap = trap;
 	}
 
-	/**
-     * meghivja a pushable pushme metodusat, hogy valtsa at a csapda allapotat ha lada lepett ra, ha nem, akkor nem tortenik semmi.
-     * @param p
-     */
-    @Override
-    public void accept(Pushable p) {
-    	super.accept(p);
-    	logger.debug("A kapcsolo mezo meghivja a ratolt objektum switchMe fuggvenyet.");
-    	p.switchMe(this);
-    }
-
     /**
      * meghivja a trap osztaly open vagy close metodusat, ami atvaltja a csapda allapotat.
      */
@@ -43,6 +32,16 @@ public class Switch extends Field {
     		trap.open();
     		trapOpened = true;
     	}
+    }
+    
+    /*
+     * Beallitja a tolhato objektumot es meghivja a switchMe metodusat
+     * */
+    @Override
+    public void setPushable(Pushable p) {
+    	super.setPushable(p);
+    	logger.debug("A kapcsolo mezo meghivja a ratolt objektum switchMe fuggvenyet.");
+    	p.switchMe(this);
     }
     
     /**

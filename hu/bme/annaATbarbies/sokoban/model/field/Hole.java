@@ -13,11 +13,16 @@ public class Hole extends Field {
     /**
      * leveszi a ratolt tolhato objektumot a palyarol.
      * @param p
-     */
-    @Override
-    public void accept(Pushable p) {
-    	logger.debug("A lyuk megoli a ratolt tolhato objektumot.");
-    	p.die();
+     */    
+	@Override
+    public void setPushable(Pushable p) {
+    	if(pushable == null) {
+    		logger.debug("A mezore tolhato objektum kerult.");
+    		p.die();
+        }
+        else {
+        	logger.debug("A mezon mar van tolhato objektum.");
+        }
     }
     
     /**

@@ -16,20 +16,27 @@ public class Trap extends Field {
 	private boolean isOpened = false;
 
     /**
-     * Leveszi a raleptetett/tolt objektumot a palyarol, ha nyitva van.
-     * Sajat magara teszi, ha zarva van.
+     * Ha nyitva van megoli a ratett objektumokat
+     * Ha zarva van elfogadja a ratett objektumokat 
      * @param p
      */
-    @Override
-    public void accept(Pushable p) {
+	@Override
+    public void setPushable(Pushable p) {
     	if(isOpened) {
-    		logger.debug("A csapda nyitva, ezert a ratolt objektum meghal.");
+    		logger.debug("A csapda nyitva, ezert a ratett objektum meghal.");
     		p.die();
     	}
-    	else {
-    		logger.debug("A csapda zarva, egyszeru mezokent viselkedik.");
-    		super.accept(p);
-    	}
+    	else {    		
+    		logger.debug("A csapda zarva, ratett objektum rajta marad.");
+    		if(pushable == null) {
+    			logger.debug("A mezore tolhato objektum kerult.");
+    			pushable = p;
+    			p.setField(this);
+    		}
+    		else {
+    			logger.debug("A mezon mar van tolhato objektum.");
+    		}
+        }
     }
 
     /**
