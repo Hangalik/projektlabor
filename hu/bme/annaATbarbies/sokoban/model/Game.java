@@ -1,12 +1,13 @@
 package hu.bme.annaATbarbies.sokoban.model;
 
-import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
+import org.apache.log4j.Logger;
 
 /**
- * Elkezd és befejez egy játékot.
+ * Elkezd es befejez egy jatekot.
  * --singleton--
  */
 public class Game {
+	Logger logger = Logger.getLogger(Game.class);
 
     private static Game ourInstance;
 
@@ -21,19 +22,17 @@ public class Game {
     }
     
     /**
-     * Elkezdi a játékot, felépíti a pályát és elhelyezi rajta az mező elemeket, a játékosokat és a ládákat.
+     * Elkezdi a jatekot, felepiti a palyat es elhelyezi rajta az mezo elemeket, a jatekosokat es a ladakat.
      */
-    public void start() {
-    	SkeletonHelper.appendIndent();
-    	SkeletonHelper.write("Game start function.");
-    	Floor.getInstance().Initialize();
-    	SkeletonHelper.popIndent();
+    public void start(String floorname) {
+    	
+    	Floor.getInstance().Initialize(floorname);
     }
 
     /**
      * Befejezi a játékot.
      */
     public void finish() {
-
+    	logger.debug("A jatek befejezodott");
     }
 }
