@@ -5,7 +5,7 @@ import hu.bme.annaATbarbies.sokoban.model.SurfaceContamination;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 import org.apache.log4j.Logger;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -18,7 +18,7 @@ public class Field {
 	
 	//Field attributumok
 	protected Pushable pushable;													//A mezon tartozkodo tolhato objektum
-	protected Map<Direction, Field> neighbor =  new HashMap<Direction, Field>();	//mezo szomszedjai "Direction" iranyokban
+	protected Map<Direction, Field> neighbor = new EnumMap<>(Direction.class);	//mezo szomszedjai "Direction" iranyokban
 
 	protected SurfaceContamination contamination = SurfaceContamination.NONE;												//a mezo surlodasi tenyezoje
     /**
@@ -63,8 +63,8 @@ public class Field {
      * @param dir
      * @return
      */
-    public Field getNeigbor(Direction dir) {
-        logger.debug("Lekertek a mezotol a szomszedjat.");
+    public Field getNeighbor(Direction dir) {
+        logger.debug("Lekertek a mezotol a szomszedjat: " + dir.toString() + ".");
         return neighbor.get(dir);
     }
     
@@ -76,6 +76,12 @@ public class Field {
     public void setNeighbor(Direction dir, Field neig) {
     	logger.debug("Mezonek szomszed lett beallitva.");
     	neighbor.put(dir, neig);
+    }
+
+    public void listNeighbors() {
+        for (Direction d : neighbor.keySet()) {
+            System.out.print(d.toString() + ": " + neighbor.get(d).getClass().toString() + " ");
+        }
     }
     
     /**

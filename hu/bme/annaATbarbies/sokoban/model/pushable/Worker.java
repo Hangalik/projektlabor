@@ -22,7 +22,7 @@ public class Worker extends Pushable implements Controller {
 
         workerState = WorkerState.STEPPING;
 
-        Field neighbor = field.getNeigbor(dir);
+        Field neighbor = field.getNeighbor(dir);
         Pushable obstacle = neighbor.getObstacle();	//lekeri a szomszedos mezo tolhato objektumat
 
         if (obstacle == null) {
@@ -69,7 +69,7 @@ public class Worker extends Pushable implements Controller {
 
         workerState = WorkerState.PUSHED_BY_BOX;
         
-        Field neighbor = field.getNeigbor(dir);
+        Field neighbor = field.getNeighbor(dir);
         Pushable obstacle = neighbor.getObstacle();	//lekeri a szomszedos mezo tolhato objektumat
 
         if (obstacle == null) {
@@ -101,7 +101,7 @@ public class Worker extends Pushable implements Controller {
 
         workerState = WorkerState.PUSHED_BY_WORKER;
         
-        Field neighbor = field.getNeigbor(Direction.UP);
+        Field neighbor = field.getNeighbor(Direction.UP);
         Pushable obstacle = neighbor.getObstacle();	//lekeri a szomszedos mezo tolhato objektumat
 
         if (obstacle == null) {
@@ -147,7 +147,7 @@ public class Worker extends Pushable implements Controller {
             case PUSHED_BY_WORKER:
                 logger.debug("Visszafele hivja a crusht.");
 
-                Field crushNeighbor = field.getNeigbor(dir);
+                Field crushNeighbor = field.getNeighbor(dir);
                 return crushNeighbor.getObstacle().crush(dir);  // Elvileg itt nem adhat vissza nullt a getObstacle()
         }
     }

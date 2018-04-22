@@ -29,7 +29,7 @@ public class Box extends Pushable {
             return;
         }
 
-        Field neighbor = field.getNeigbor(dir);
+        Field neighbor = field.getNeighbor(dir);
         Pushable obstacle = neighbor.getObstacle();
 
         if (obstacle == null) {
@@ -69,7 +69,7 @@ public class Box extends Pushable {
             return;
         }
 
-        Field neighbor = field.getNeigbor(dir);
+        Field neighbor = field.getNeighbor(dir);
         Pushable obstacle = neighbor.getObstacle();
 
         if (obstacle == null) {
@@ -91,12 +91,12 @@ public class Box extends Pushable {
     }
 
     /**
-     * igaz ertekkel ter vissza, ha mar biztosan nem lehet eltolni.
+     * Hamis ertekkel ter vissza, ha mar biztosan nem lehet eltolni.
      *
      * @return
      */
     public boolean amIPushable() {
-        return false;
+        return true;
     }
 
     /**
@@ -117,5 +117,6 @@ public class Box extends Pushable {
         logger.debug("onTarget jutalmazza az eppen soros jatekost");
 
         Floor.getInstance().rewardCurrentPlayer();
+        die();
     }
 }

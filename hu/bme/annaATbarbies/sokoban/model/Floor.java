@@ -1,9 +1,10 @@
 package hu.bme.annaATbarbies.sokoban.model;
 
-import hu.bme.annaATbarbies.sokoban.model.field.Field;
+import hu.bme.annaATbarbies.sokoban.model.field.*;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Box;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Controller;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
+import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
@@ -23,7 +24,10 @@ public class Floor {
     private ArrayList<Field> fields;
     private ArrayList<Controller> workers;
     private ArrayList<Box> boxes;
+    private ArrayList<Controller> dead;
     private int activeWorker;
+
+    private Field floor[][];
 
     public static Floor getInstance() {
         if (ourInstance == null) {
@@ -36,6 +40,7 @@ public class Floor {
         fields = new ArrayList<>();
         workers = new ArrayList<>();
         boxes = new ArrayList<>();
+        dead = new ArrayList<>();
     }
 
 
@@ -52,15 +57,17 @@ public class Floor {
         if (boxes.size() == 0)
             finished = true;
 
-        for (int i = 0; i < boxes.size(); i++) {
-            if (boxes.get(i).amIPushable() == false)
-                break;
-            finished = true;
+        boolean anyBoxPushable = false;
+        for (Box box : boxes) {
+            if(box.amIPushable()) {
+                anyBoxPushable = true;
+            }
         }
 
-        if (finished)
+        if (finished || !anyBoxPushable) {
             Game.getInstance().finish();
-        logger.debug("Jatek befejezodott");
+            logger.debug("Jatek befejezodott");
+        }
     }
 
     /**
@@ -85,6 +92,7 @@ public class Floor {
      * meghivja az aktiv jatekos step fuggvenyet, a megadott iranyba
      */
     public void activePlayerMoves(Direction dir) {
+        logger.debug("irany: " + dir.toString());
         workers.get(activeWorker).step(dir);
     }
 
@@ -103,10 +111,75 @@ public class Floor {
      */
     public void Initialize(String floorname) {
 
+        clear();
+
         try (BufferedReader br = new BufferedReader(new FileReader(floorname))) {
+
+            logger.debug("Sikeres fajl megnyitas.");
+            String size[] = br.readLine().split(" ");
+            int x = Integer.parseInt(size[0]);
+            int y = Integer.parseInt(size[1]);
+
+            floor = new Field[x][y];
+
             String line;
+
             while ((line = br.readLine()) != null) {
-                // process the line.
+                logger.debug("Beolvastunk egy sort: " + line);
+                String splitLine[] = line.split(" ");
+
+                // Field-es dolgok itt vannak kezelve
+                Field field = null;
+                switch (splitLine[0]) {
+                    case "field":
+                        field = new Field();
+                        break;
+
+                    case "block":
+                        field = new Block();
+                        break;
+
+                    case "hole":
+                        field = new Hole();
+                        break;
+
+                    case "target":
+                        field = new Target();
+                        break;
+
+                    case "switch":  // a Trap is itt lesz megadva, kulon mar nem
+                        field = new Switch();
+                        if (splitLine[3].equals("trap")) {
+                            String trapArgs[] = {splitLine[3], splitLine[4], splitLine[5]};
+                            Trap trap = new Trap();
+                            placeField(trap, trapArgs);
+                            ((Switch) field).setTrap(trap);
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+                placeField(field, splitLine);
+
+                // Pushable-es dolgok itt vannak kezelve
+                Pushable p = null;
+                switch (splitLine[0]) {
+                    case "box":
+                        p = new Box();
+                        boxes.add((Box) p);
+                        break;
+
+                    case "worker":
+                        p = new Worker();
+                        workers.add((Worker) p);
+                        break;
+
+                    default:
+                        break;
+                }
+                placePushable(p, splitLine);
+
             }
         } catch (FileNotFoundException e) {
             logger.debug("Nem talalhato a fajl");
@@ -115,35 +188,71 @@ public class Floor {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        //TODO: Initialize...
-        //Create
-        /*Field f1 = new Field();
-        Field f2 = new Field();
-        Block b1 = new Block();
-        Block b2 = new Block();
-        Box bx1 = new Box();
-        Worker w1 = new Worker();
+    }
 
-        //SetNeighbor
-        f1.setNeighbor(Direction.UP, f2);
-        f2.setNeighbor(Direction.DOWN, f1);
+    private void placeField(Field f, String args[]) {
+        if (f == null) return;
 
-        f1.setNeighbor(Direction.DOWN, b1);
-        b1.setNeighbor(Direction.UP, f1);
+        logger.debug("Egy Field tipusu mezot helyezunk el.");
+        fields.add(f);
+        int xPos = Integer.parseInt(args[1]);
+        int yPos = Integer.parseInt(args[2]);
+        floor[xPos][yPos] = f;
 
-        f1.setNeighbor(Direction.RIGHT, b2);
-        b2.setNeighbor(Direction.LEFT, f2);
+        if (args.length > 3) {
+            switch (args[3]) {
+                default:
+                    break;
+                case "honey":
+                    f.pourHoney();
+                    break;
+                case "oil":
+                    f.pourOil();
+                    break;
+            }
+        }
 
-        //SetPushable
-        f1.setPushable(bx1);
-        f2.setPushable(w1);*/
+        Field n;
+        if (xPos > 0 && (n = floor[xPos - 1][yPos]) != null) {
+            n.setNeighbor(Direction.RIGHT, f);
+            f.setNeighbor(Direction.LEFT, n);
+        }
+        if (xPos < floor.length - 1 && (n = floor[xPos + 1][yPos]) != null) {
+            n.setNeighbor(Direction.LEFT, f);
+            f.setNeighbor(Direction.RIGHT, n);
+        }
+        if (yPos > 0 && (n = floor[xPos][yPos - 1]) != null) {
+            n.setNeighbor(Direction.DOWN, f);
+            f.setNeighbor(Direction.UP, n);
+        }
+        if (yPos < (floor[0].length) - 1 && (n = floor[xPos][yPos + 1]) != null) {
+            n.setNeighbor(Direction.UP, f);
+            f.setNeighbor(Direction.DOWN, n);
+        }
+    }
+
+    private void placePushable(Pushable p, String args[]) {
+        if (p == null) return;
+
+        logger.debug("Egy Pushable tipusu mezot helyezunk el.");
+
+        int xPos = Integer.parseInt(args[1]);
+        int yPos = Integer.parseInt(args[2]);
+
+        Field field = floor[xPos][yPos];
+
+        field.setPushable(p);
+        p.setField(field);
     }
 
     /**
      * Letorli a meglevo palyat
      */
     public void clear() {
-
+        workers.clear();
+        boxes.clear();
+        fields.clear();
+        floor = null;
     }
 
     /**
@@ -153,29 +262,56 @@ public class Floor {
      */
     public void pushableDied(Pushable p) {
         for (int i = 0; i < workers.size(); i++) {
-            if (workers.get(i) == p)
-                workers.remove(i);
-            logger.debug("Munkas meghalt");
+            if (workers.get(i).equals(p)) {
+                Controller removed = workers.remove(i);
+                dead.add(removed);
+                logger.debug("Munkas meghalt");
+            }
         }
         for (int i = 0; i < boxes.size(); i++) {
-            if (boxes.get(i) == p)
+            if (boxes.get(i).equals(p)) {
                 boxes.remove(i);
-            logger.debug("Doboz eltunt");
+                logger.debug("Doboz eltunt");
+            }
         }
     }
 
     public void list(String type) {
         if (type.equals("boxes")) {
             for (int i = 0; i < boxes.size(); i++) {
-                System.out.println(i);
+                for (int x = 0; x < floor.length; x++) {
+                    for (int y = 0; y < floor[x].length; y++) {
+                        if ((boxes.get(i)).getField().equals(floor[x][y])) {
+                            System.out.print("box_" + i + "\talive\t" + x + " " + y);
+                        }
+                    }
+                }
+                System.out.println();
             }
         } else if (type.equals("workers")) {
+            int k = 0;
             for (int i = 0; i < workers.size(); i++) {
-                System.out.println(i);
+                for (int x = 0; x < floor.length; x++) {
+                    for (int y = 0; y < floor[x].length; y++) {
+                        if (((Worker)workers.get(i)).getField().equals(floor[x][y])) {
+                            System.out.print("player_" + k++ + "\talive\t" + x + " " + y);
+                        }
+                    }
+                }
+                System.out.println();
+            }
+            for (int i = 0; i < dead.size(); i++) {
+                System.out.println("player_" + k++ + "\tdead");
             }
         } else if (type.equals("fields")) {
-            for (int i = 0; i < fields.size(); i++) {
-                System.out.println(i);
+            for (Field field : fields) {
+                for (int x = 0; x < floor.length; x++) {
+                    for (int y = 0; y < floor[x].length; y++) {
+                        if (field.equals(floor[x][y]))
+                            System.out.print(x + " " + y + "\t" + field.getClass().toString() + " ");
+                    }
+                }
+                System.out.println();
             }
         }
     }

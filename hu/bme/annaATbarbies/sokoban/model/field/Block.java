@@ -1,10 +1,8 @@
 package hu.bme.annaATbarbies.sokoban.model.field;
 
-import org.apache.log4j.Logger;
-
-import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
+import org.apache.log4j.Logger;
 
 /**
  * A jatekban levo fal elemeket reprezentalja.
@@ -13,6 +11,7 @@ import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 public class Block extends Field {
 
 	Logger logger = Logger.getLogger(Block.class);
+
     /**
      * nem helyezi magara a tolhato objektumot, mivel a falelemen nem allhat semmi.
      * meghivja az ide lepni akaro objektum crush fuggvenyet
@@ -22,6 +21,13 @@ public class Block extends Field {
     public void accept(Pushable p) {
     	logger.debug("A fal elem mezo nem fogadta el a ratolt tolhato objektumot.");
     	//p.crush(dir);	//hmmmmmm
+        for (Direction d : neighbor.keySet()) {
+            if (p.equals(neighbor.get(d).getObstacle())) {
+                logger.debug("a block-ra innen lepnek: " + d.toString());
+                p.crush(d);
+                break;
+            }
+        }
     }
     
     /**

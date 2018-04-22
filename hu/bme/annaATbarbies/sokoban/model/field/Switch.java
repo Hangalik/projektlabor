@@ -1,11 +1,7 @@
 package hu.bme.annaATbarbies.sokoban.model.field;
 
-import org.apache.log4j.Logger;
-
-import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
-import hu.bme.annaATbarbies.sokoban.model.pushable.Box;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
-import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
+import org.apache.log4j.Logger;
 
 /**
  * A jatekban levo kapcsolokat reprezentalja.
@@ -13,11 +9,17 @@ import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
  */
 public class Switch extends Field {
 	Logger logger = Logger.getLogger(Switch.class);
-	
+
 	//Kapcsolohoz tartozo csapda
+
 	private Trap trap;
 	private boolean trapOpened = false;
-    /**
+
+	public void setTrap(Trap trap) {
+		this.trap = trap;
+	}
+
+	/**
      * meghivja a pushable pushme metodusat, hogy valtsa at a csapda allapotat ha lada lepett ra, ha nem, akkor nem tortenik semmi.
      * @param p
      */
