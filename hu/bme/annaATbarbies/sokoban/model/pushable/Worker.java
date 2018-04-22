@@ -148,7 +148,7 @@ public class Worker extends Pushable implements Controller {
                 logger.debug("Visszafele hivja a crusht.");
 
                 Field crushNeighbor = field.getNeigbor(dir);
-                return crushNeighbor.getObstacle().crush(dir);
+                return crushNeighbor.getObstacle().crush(dir);  // Elvileg itt nem adhat vissza nullt a getObstacle()
         }
     }
 }

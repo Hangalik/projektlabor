@@ -1,90 +1,57 @@
 package hu.bme.annaATbarbies.sokoban.model.field;
 
+import org.apache.log4j.Logger;
+
 import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Box;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
 
 /**
- * A játékban lévő csapdákat reprezentálja.
- * Definiálja, hogy mi történik, ha valami a csapdára lép, valamint változtatni tudja a csapda állapotát.
+ * A jatekban levo csapdakat reprezentalja.
+ * Definialja, hogy mi tortenik, ha egy tolhato objektum csapdara lep.
  */
 public class Trap extends Field {
+	Logger logger = Logger.getLogger(Trap.class);
+	private boolean isOpened = false;
 
     /**
-     * Leveszi a rá lépő/tolódó dolgot a pályáról, ha nyitva van.
-     * Saját magára teszi a rátolt objektumot, ha zárva van.
+     * Leveszi a raleptetett/tolt objektumot a palyarol, ha nyitva van.
+     * Sajat magara teszi, ha zarva van.
      * @param p
      */
     @Override
     public void accept(Pushable p) {
-    	SkeletonHelper.appendIndent();
-    	SkeletonHelper.write("Trap accept function.");
-    	SkeletonHelper.write("Is the trap active? 1: Yes; 2: No");
-    	int responseNum = SkeletonHelper.readInt();
-    	
-    	if(responseNum==1) {
+    	if(isOpened) {
+    		logger.debug("A csapda nyitva, ezert a ratolt objektum meghal.");
     		p.die();
     	}
     	else {
-    		p.getField().removePushable();
-        	this.setPushable(p);
-    	}
-    	
-    	SkeletonHelper.popIndent();
-    }
-    
-    /**
-     * Lekérdezi a csapda állapotát, ha nem aktív, akkor
-     * visszaadja azt a tolható elemet, ami a lépni kívánó elem előtt van, tehát amit el kell tolnia.
-     */
-    @Override
-    public Pushable getObstacle() {
-    	SkeletonHelper.appendIndent();
-    	SkeletonHelper.write("Trap getObstacle function.");
-    	SkeletonHelper.write("Is the trap active? 1: Yes; 2: No");
-    	int trapActive = SkeletonHelper.readInt();
-    	
-    	if(trapActive==2) {
-	    	SkeletonHelper.write("What should be on the field? 1: Empty; 2: Worker; 3: Box;");
-	    	int responseNum = SkeletonHelper.readInt();
-	    	
-	    	Pushable ret;
-	    	switch (responseNum) {
-	    		default:
-	    	    case 1: ret = null;
-	    	    	break;
-	    	    case 2: ret = new Worker();
-	    	    	break;
-	    	    case 3: ret = new Box();
-	    	    	break;
-	    	}
-	
-	    	SkeletonHelper.popIndent();
-	    	return ret;
-    	}
-    	else {
-    		SkeletonHelper.popIndent();
-    		return null;
+    		logger.debug("A csapda zarva, egyszeru mezokent viselkedik.");
+    		super.accept(p);
     	}
     }
 
     /**
-     * kinyitja a csapdát, megöli aki rajta áll.
+     * kinyitja a csapdat, megoli aki rajta van
      */
     public void open() {
-    	SkeletonHelper.appendIndent();
-    	SkeletonHelper.write("Trap open function.");
-    	new Worker().die();
-    	SkeletonHelper.popIndent();
+    	logger.debug("A csapda kinyilt.");
+    	isOpened = true;
+    	if(pushable != null) {
+    		logger.debug("A csapdan volt tolhato objektum.");
+    		pushable.die();    		
+    	}
+    	else {
+    		logger.debug("A csapdan nem volt tolhato objektum.");
+    	}
     }
 
     /**
-     * bezárja a csapdát.
+     * bezarja a csapdat
      */
     public void close() {
-    	SkeletonHelper.appendIndent();
-    	SkeletonHelper.write("Trap close function.");
-    	SkeletonHelper.popIndent();
+    	logger.debug("A csapda bezarult.");
+    	isOpened = false;
     }
 }

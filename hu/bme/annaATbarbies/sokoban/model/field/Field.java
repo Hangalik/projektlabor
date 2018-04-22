@@ -1,137 +1,111 @@
 package hu.bme.annaATbarbies.sokoban.model.field;
 
-import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.Direction;
-import hu.bme.annaATbarbies.sokoban.model.pushable.Box;
+import hu.bme.annaATbarbies.sokoban.model.SurfaceContamination;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
-import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
+import org.apache.log4j.Logger;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Egy Ã¼res mezÅ‘, amin tolhatÃ³ objektum lehet.
- * EldÃ¶nti, hogy mi tÃ¶rtÃ©njen, ha egy tolhatÃ³ objektum kerÃ¼lne rÃ¡.
- * A tÃ¶bbi pÃ¡lyaelem alaposztÃ¡lya.
+ * Egy altalanos mezo, amin tolhato objektum lehet.
+ * Eldonti, hogy mi tonjen, ha egy tolhato objektum kerulne ra.
+ * A tobbi palyaelem alaposzta.
  */
 public class Field {
+	Logger logger = Logger.getLogger(Field.class);
 	
-	//Field attribútumok
-	//protected Pushable pushable;
-	//protected Map<Direction, Field> neighbour;
-	
-	//Field konstruktor
-	//public Field() {
-	//	neighbour = new Map<Direction, Field>();
-	//}
+	//Field attributumok
+	protected Pushable pushable;													//A mezon tartozkodo tolhato objektum
+	protected Map<Direction, Field> neighbor =  new HashMap<Direction, Field>();	//mezo szomszedjai "Direction" iranyokban
 
+	protected SurfaceContamination contamination = SurfaceContamination.NONE;												//a mezo surlodasi tenyezoje
     /**
-     * tÃ¶rli a mezÅ‘n lÃ©vÅ‘ tolhatÃ³ objektumot.
+     * torli a mezon levo tolhato objektumot.
      */
     public void removePushable() {
-        SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Field removePushable function.");
-        SkeletonHelper.popIndent();
+        if(pushable != null) {
+        	pushable = null;
+        	logger.debug("Tolhato objektum torolve.");
+        }
+        else {
+        	logger.debug("Nincs tolhato objektum, amit torolni lehetne.");
+        }
     }
 
     /**
-     * sajÃ¡t magÃ¡ra teszi a rÃ¡tolt objektumot, ha rajta nincs mÃ¡sik tolhatÃ³ objektum.
+     * sajat magara teszi a ratolt objektumot, ha rajta nincs masik tolhato objektum.
      * @param p
      */
     public void accept(Pushable p) {
-        SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Field accept function.");
-
-        p.getField().removePushable();
-        this.setPushable(p);
-
-        SkeletonHelper.popIndent();
+        if(pushable == null) {
+        	logger.debug("A mezo elfogadta a tolhato objektumot.");
+        	p.getField().removePushable();
+        	this.setPushable(p);
+        }
+        else {
+        	logger.debug("A mezo nem fogadta el a tolhato objektumot.");
+        }
     }
 
     /**
-     * visszaadja azt a tolhatÃ³ elemet, ami a lÃ©pni kÃ­vÃ¡nÃ³ elem elÅ‘tt van, tehÃ¡t amit el kell tolnia.
+     * visszaadja azt a tolhato elemet, ami a lepni kivano elem elott van, tehat amit el kell tolnia.
      * @return
      */
     public Pushable getObstacle() {
-        SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Field getObstacle function.");
-        SkeletonHelper.write("What should be on the field? 1: Empty; 2: Worker; 3: Box;");
-        int responseNum = SkeletonHelper.readInt();
-
-        Pushable ret;
-        switch (responseNum) {
-            default:
-            case 1: ret = null;
-                break;
-            case 2: ret = new Worker();
-                break;
-            case 3: ret = new Box();
-                break;
-        }
-
-        SkeletonHelper.popIndent();
-        return ret;
+        logger.debug("Lekertek a mezotol a tolhato objektumat.");
+        return pushable;
     }
 
     /**
-     * visszaadja a Direction irÃ¡nyban lÃ©vÅ‘ szomszÃ©dos mezÅ‘t.
+     * visszaadja a Direction iranyban levo szomszedos mezot.
      * @param dir
      * @return
      */
     public Field getNeigbor(Direction dir) {
-        SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Field getNeighbor function.");
-        SkeletonHelper.write("What should be the neighboring field? 1: Field; 2: Block; 3: Hole; 4: Trap; 5: Target; 6: Switch");
-        int responseNum = SkeletonHelper.readInt();
-
-        Field ret;
-        switch (responseNum) {
-            default:
-            case 1: ret = new Field();
-                break;
-            case 2: ret = new Block();
-                break;
-            case 3: ret = new Hole();
-                break;
-            case 4: ret = new Trap();
-                break;
-            case 5: ret = new Target();
-                break;
-            case 6: ret = new Switch();
-                break;
-        }
-
-        SkeletonHelper.popIndent();
-        return ret;
+        logger.debug("Lekertek a mezotol a szomszedjat.");
+        return neighbor.get(dir);
     }
     
     /**
-     * Beállítja a megfelelő irányba a szomszédos elemet
+     * Beallitja a megfelelo iranyba a szomszedos elemet
      * @param dir
      * @param neig
      */
     public void setNeighbor(Direction dir, Field neig) {
-    	SkeletonHelper.appendIndent();
-    	SkeletonHelper.write("Field setNeighbor function.");
-    	SkeletonHelper.popIndent();
+    	logger.debug("Mezonek szomszed lett beallitva.");
+    	neighbor.put(dir, neig);
     }
     
     /**
-     * Ráhelyezi a tolható tárgyat a mezőre
-     * @param pushable
+     * Rahelyezi a tolhato targyat a mezore
+     * Csak palyaepitesnel hasznalhato
+     * @param p
      */
-    public void setPushable(Pushable pushable) {
-        SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Field setPushable function.");
-        SkeletonHelper.popIndent();
+    public void setPushable(Pushable p) {
+    	if(pushable == null) {
+    		logger.debug("A mezore tolhato objektum kerult.");
+        	pushable = p;
+        	p.setField(this);
+        }
+        else {
+        	logger.debug("A mezon mar van tolhato objektum.");
+        }
     }
-
+    
     public void pourOil() {
-
+    	logger.debug("Olajjal lett osszekenve a mezo.");
+    	contamination = SurfaceContamination.OIL;
     }
-
+    
     public void pourHoney() {
-
+    	logger.debug("Mezzel lett osszekenve a mezo.");
+    	contamination = SurfaceContamination.HONEY;
     }
-
+        
     public int getFriction() {
-        return 0;
+    	logger.debug("A mezotol le lett kerdezve a surlodasi tenyezoje.");
+    	return contamination.getValue();
     }
 }

@@ -1,74 +1,58 @@
 package hu.bme.annaATbarbies.sokoban.model.field;
 
+import org.apache.log4j.Logger;
+
 import hu.bme.annaATbarbies.sokoban.SkeletonHelper;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Box;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Worker;
 
 /**
- * A játékban lévő kapcsolókat reprezentálja.
- * Definiálja, hogy mi történik, ha valami rálép, valamint a kapcsoló állapotát változtatni tudja.
+ * A jatekban levo kapcsolokat reprezentalja.
+ * Definialja, hogy mi tortenik ha valami ralep, valamint a kapcsolo allapotat valtoztatni tudja.
  */
 public class Switch extends Field {
+	Logger logger = Logger.getLogger(Switch.class);
 	
-	//Kapcsolóhoz tartozó csapda
-	//private Trap trap;
-
+	//Kapcsolohoz tartozo csapda
+	private Trap trap;
+	private boolean trapOpened = false;
     /**
-     * meghívja a pushable switchMe metódusát, hogy váltsa át a csapda állapotát ha láda lépett rá, ha nem, akkor nem történik semmi.
+     * meghivja a pushable pushme metodusat, hogy valtsa at a csapda allapotat ha lada lepett ra, ha nem, akkor nem tortenik semmi.
      * @param p
      */
     @Override
     public void accept(Pushable p) {
-    	SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Switch accept function.");
-
-        p.switchMe(this);
-
-        p.getField().removePushable();
-        this.setPushable(p);
-
-        SkeletonHelper.popIndent();
+    	super.accept(p);
+    	logger.debug("A kapcsolo mezo meghivja a ratolt objektum switchMe fuggvenyet.");
+    	p.switchMe(this);
     }
 
     /**
-     * meghívja a Trap osztály open vagy close metódusát, ami átváltja a csapda állapotát.
+     * meghivja a trap osztaly open vagy close metodusat, ami atvaltja a csapda allapotat.
      */
     public void switch_() {
-    	SkeletonHelper.appendIndent();
-    	SkeletonHelper.write("Switch class switch function.");
-    	
-    	SkeletonHelper.write("Is the switch on? 1: Yes; 2: No");
-    	int responseNum = SkeletonHelper.readInt();
-    	if(responseNum==1) {
-    		new Trap().close();
+    	logger.debug("A kapcsolo mezo allapotot valtott.");
+    	if(trapOpened) {
+    		trap.close();
+    		trapOpened = false;
     	}
     	else {
-    		new Trap().open();
+    		trap.open();
+    		trapOpened = true;
     	}
-    	
-    	SkeletonHelper.popIndent();
     }
     
     /**
-     * meghívja a rajta lévő objektum switchMe metódusát, majd törli azt
+     * meghivja a rajta levo objektum switchMe metodusat, majd torli azt
      */
     @Override
     public void removePushable() {
-        SkeletonHelper.appendIndent();
-        SkeletonHelper.write("Switch removePushable function.");
-
-        SkeletonHelper.write("What is being removed from the switch? 1: Worker; 2: Box;");
-        int responseNum = SkeletonHelper.readInt();
-        Pushable p;
-        switch (responseNum) {
-            default:
-            case 1: p = new Worker();
-                break;
-            case 2: p = new Box();
-                break;
-        }
-        p.switchMe(this);
-        SkeletonHelper.popIndent();
+    	if(pushable != null) {
+    		logger.debug("A kapcsolo mezo meghivja a rajta levo objektum switchMe fuggvenyet.");
+    		pushable.switchMe(this);
+    	}
+    	super.removePushable();
+    	
     }
 }
