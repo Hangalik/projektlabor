@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * --singleton--
  */
 public class Floor {
-    Logger logger = Logger.getLogger(Floor.class);
+    public static final Logger logger = Logger.getLogger(Floor.class);
     private static Floor ourInstance;
 
     private ArrayList<Field> fields;
@@ -44,7 +44,6 @@ public class Floor {
         deadWorkers = new ArrayList<>();
         deadBoxes = new ArrayList<>();
     }
-
 
     /**
      * Minden lepesnel ellenorzi, hogy veget ert-e a jatek. Ha igen, akkor meghivja a Game osztaly finish() metodusat.

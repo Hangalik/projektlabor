@@ -3,6 +3,7 @@ package hu.bme.annaATbarbies.sokoban;
 import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.Floor;
 import hu.bme.annaATbarbies.sokoban.model.Game;
+import hu.bme.annaATbarbies.sokoban.view.Controller;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
@@ -14,6 +15,9 @@ public class Main {
     private static final Logger logger = Logger.getLogger(Main.class);
 
     public static void main(String[] args) {
+
+        Controller controller = new Controller();
+        controller.appStarted();
 
         logger.debug("ujrakezdtunk");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
