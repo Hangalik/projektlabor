@@ -45,6 +45,10 @@ public class Floor {
         deadBoxes = new ArrayList<>();
     }
 
+    public Field[][] getFloor() {
+        return floor;
+    }
+
     /**
      * Minden lepesnel ellenorzi, hogy veget ert-e a jatek. Ha igen, akkor meghivja a Game osztaly finish() metodusat.
      */
