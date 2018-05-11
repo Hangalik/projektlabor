@@ -2,7 +2,6 @@ package hu.bme.annaATbarbies.sokoban;
 
 import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.Floor;
-import hu.bme.annaATbarbies.sokoban.model.Game;
 import hu.bme.annaATbarbies.sokoban.view.Controller;
 import org.apache.log4j.Logger;
 
@@ -29,7 +28,8 @@ public class Main {
                 if (parts[0].equals("loadGame")) {
                     //A sor masodik szava a beolvasando fajl neve
                     logger.debug("loadGame fajl: " + parts[1]);
-                    Game.getInstance().start(parts[1]);
+                    //Game.getInstance().start(parts[1]);
+                    Floor.getInstance().Initialize(parts[1]);
                 } else if (parts[0].equals("bindPlayer")) {
                     //A jatekos player_01 formatumban van megadva
                     String[] player = parts[1].split("_");

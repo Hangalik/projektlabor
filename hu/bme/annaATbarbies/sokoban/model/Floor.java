@@ -66,7 +66,7 @@ public class Floor {
         }
 
         if (finished || !anyBoxPushable) {
-            Game.getInstance().finish();
+            //Game.getInstance().finish();
             logger.debug("Jatek befejezodott");
         }
     }
