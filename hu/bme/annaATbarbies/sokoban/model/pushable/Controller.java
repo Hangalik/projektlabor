@@ -3,21 +3,32 @@ package hu.bme.annaATbarbies.sokoban.model.pushable;
 import hu.bme.annaATbarbies.sokoban.model.Direction;
 
 /**
- * Interface a játékos által irányítható dolgoknak.
+ * Interface a jatekos altal iranyithato dolgoknak.
  */
 public interface Controller {
 
     /**
-     * Definiálja, hogy mi történik, ha a játékos lép egy megadott irányba.
-     * A metódus meghívja annak a mezőnek, a getNeighbor(Direction) metódusát, amelyen a játékos épp áll.
-     * Ez a metódus visszatér azzal a szomszédjával, amire a játékos lépni akar.
-     * Ekkor a játékos meghívja annak a mezőnek az accept(Worker) metódusát.
+     * Definialja, hogy mi tortenik, ha a jatekos lep egy megadott iranyba.
+     * A metodus meghivja annak a mezonek, a getNeighbor(Direction) metodusat, amelyen a jatekos epp all.
+     * Ez a metodus visszater azzal a szomszedjaval, amire a jatekos lepni akar.
+     * Ekkor a jatekos meghivja annak a mezonek az accept(Worker) metodusat.
+     *
      * @param dir
      */
     void step(Direction dir);
 
     /**
-     * Ha a játékos jó helyre tolt egy ládát, pontot ad neki.
+     * Ha a jatekos jo helyre tolt egy ladat, pontot ad neki.
      */
     void gainPoint();
+
+    /**
+     * Osszekeni a mezot olajjal, ezzel csuszosabba teve a mezot.
+     */
+    void lubricateOil();
+
+    /**
+     * Osszekeni a mezot mezzel, ezzel ragadosabba teve a mezot.
+     */
+    void lubricateHoney();
 }
