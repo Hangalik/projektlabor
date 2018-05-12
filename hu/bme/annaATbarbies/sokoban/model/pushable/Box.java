@@ -125,19 +125,16 @@ public class Box extends Pushable {
      */
     private boolean testMovability(Direction d) {
     	logger.debug("Mozgathatosag tesztelese.");
-    	Field oldField = this.field;
-    	this.push(d, new Worker(), 1000);
-    	if(oldField == this.field) {
-    		logger.debug("A ladat nem sikerult elmozditani.");
+    	Field iField = field;
+    	while(iField.getObstacle() instanceof Box) {
+    		iField = iField.getNeighbor(d);
+    	}
+    	if(iField instanceof Block) {
+    		logger.debug("A lada nem mozdithato el.");
     		return false;
     	}
     	else {
-    		logger.debug("A ladat sikerult eltolni, a kovetkezo lepes a lada vissztolasa.");
-    		Field iField = field;	//vegigiteralunk azokon a fieldeken, amiken eltoltunk pushablet
-    		while(iField.getObstacle() != null) {	//ha egy field ures, utana mar nem tolhattunk el pushablet
-    			iField.getObstacle().push(Direction.oppositeDirection(d), new Worker(), 1000);	//vissza kell tolni a pushablet
-    			iField = iField.getNeighbor(d).getNeighbor(d);	//mivel az utanalevo mezo ures, ezert a ketszer utanalevo pushablet kell eltolni
-    		}
+    		logger.debug("A lada elmozdithato");
     		return true;
     	}
     }

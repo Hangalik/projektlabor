@@ -1,6 +1,9 @@
 package hu.bme.annaATbarbies.sokoban.view;
 
 import javax.swing.*;
+
+import hu.bme.annaATbarbies.sokoban.model.Floor;
+
 import java.awt.event.ActionEvent;
 
 public class Controller extends AbstractAction{
@@ -49,6 +52,10 @@ public class Controller extends AbstractAction{
 
             default:
                 break;
+        }
+        if(Floor.getInstance().gameOver()) {
+        	game.disableInput();
+        	result.createAndShow();
         }
         game.repaintNeeded();
     }
