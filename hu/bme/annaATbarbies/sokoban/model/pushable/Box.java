@@ -92,13 +92,50 @@ public class Box extends Pushable {
 
     /**
      * Hamis ertekkel ter vissza, ha mar biztosan nem lehet eltolni.
-     *
+     *Ez azt jelenti, hogy 
      * @return
      */
     public boolean amIPushable() {
+    	logger.debug("Lada eltolhatosaganak a vizsgalata.");
+    	if(!(testMovability(Direction.LEFT) || testMovability(Direction.UP))) {
+    		logger.debug("A lada bal felso sarokba akadt.");
+    		return false;
+    	}
+    	else if(!(testMovability(Direction.LEFT) || testMovability(Direction.DOWN))) {
+    		logger.debug("A lada bal also sarokba akadt.");
+    		return false;
+    	}
+    	else if(!(testMovability(Direction.RIGHT) || testMovability(Direction.UP))) {
+    		logger.debug("A lada jobb felso sarokba akadt.");
+    		return false;
+    	}
+    	else if(!(testMovability(Direction.RIGHT) || testMovability(Direction.DOWN))) {
+    		logger.debug("A lada jobb also sarokba akadt.");
+    		return false;
+    	}
+    	logger.debug("A lada mozgathato.");
         return true;
     }
-
+    
+    /**
+     * Teszteli, hogy egy lada eltolhato-e egy iranyba
+     * @param d az eltolas iranya
+     * @return igaz, amennyiben eltolhato
+     */
+    private boolean testMovability(Direction d) {
+    	logger.debug("Mozgathatosag tesztelese.");
+    	Field oldField = this.field;
+    	this.push(d, new Worker(), 1000);
+    	if(oldField == this.field) {
+    		logger.debug("A ladat nem sikerult elmozditani.");
+    		return false;
+    	}
+    	else {
+    		logger.debug("A ladat sikerult eltolni, a kovetkezo lepes a lada vissztolasa.");
+    		this.push(Direction.oppositeDirection(d), new Worker(), 1000);	//vissza kell tolni a dobozt
+    		return true;
+    	}
+    }
     /**
      * meghivja a Switch tipusu objektum switch() metodusat, ha egy doboz ramegy a kapcsolora.
      */
