@@ -2,6 +2,7 @@ package hu.bme.annaATbarbies.sokoban.model.pushable;
 
 import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.Floor;
+import hu.bme.annaATbarbies.sokoban.model.field.Block;
 import hu.bme.annaATbarbies.sokoban.model.field.Field;
 import hu.bme.annaATbarbies.sokoban.model.field.Switch;
 import org.apache.log4j.Logger;
@@ -132,7 +133,11 @@ public class Box extends Pushable {
     	}
     	else {
     		logger.debug("A ladat sikerult eltolni, a kovetkezo lepes a lada vissztolasa.");
-    		this.push(Direction.oppositeDirection(d), new Worker(), 1000);	//vissza kell tolni a dobozt
+    		Field iField = field;	//vegigiteralunk azokon a fieldeken, amiken eltoltunk pushablet
+    		while(iField.getObstacle() != null) {	//ha egy field ures, utana mar nem tolhattunk el pushablet
+    			iField.getObstacle().push(Direction.oppositeDirection(d), new Worker(), 1000);	//vissza kell tolni a pushablet
+    			iField = iField.getNeighbor(d).getNeighbor(d);	//mivel az utanalevo mezo ures, ezert a ketszer utanalevo pushablet kell eltolni
+    		}
     		return true;
     	}
     }
