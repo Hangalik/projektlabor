@@ -23,11 +23,35 @@ public class GamePanel extends JPanel {
     private static final int maxCellWidth = 80;
     private static final int optimalCellWidth = 50;
 
-    private static Image img = null;
+    private static Image block = null;
+    private static Image box= null;
+    private static Image field = null;
+    private static Image hole = null;
+    private static Image honey = null;
+    private static Image oil = null;
+    private static Image switch_left = null;
+    private static Image switch_right = null;
+    private static Image target = null;
+    private static Image worker1 = null;
+    private static Image worker2 = null;
+    private static Image worker3 = null;
+    private static Image worker4= null;
 
     static {
         try {
-            img = ImageIO.read(new File("src/res/placeholder.png"));
+            block = ImageIO.read(new File("src/res/block.png"));
+            box = ImageIO.read(new File("src/res/box.png"));
+            field = ImageIO.read(new File("src/res/field.png"));
+            hole = ImageIO.read(new File("src/res/hole.png"));
+            honey = ImageIO.read(new File("src/res/honey.png"));
+            oil = ImageIO.read(new File("src/res/oil.png"));
+            switch_left = ImageIO.read(new File("src/res/switch_left.png"));
+            switch_right = ImageIO.read(new File("src/res/switch_right.png"));
+            target = ImageIO.read(new File("src/res/target.png"));
+            worker1 = ImageIO.read(new File("src/res/worker1.png"));
+            worker2 = ImageIO.read(new File("src/res/worker2.png"));
+            worker3 = ImageIO.read(new File("src/res/worker3.png"));
+            worker4 = ImageIO.read(new File("src/res/worker4.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
