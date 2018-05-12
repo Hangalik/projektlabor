@@ -17,7 +17,7 @@ public class Controller extends AbstractAction{
     }
 
     public void createGame() {
-        Floor.getInstance().Initialize("Test_Lvl1.txt");
+        Floor.getInstance().Initialize("src/res/Test_Lvl1.txt");
         game = new GameWindow(this);
         game.createAndShow();
     }

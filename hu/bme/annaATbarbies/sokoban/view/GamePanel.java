@@ -27,7 +27,7 @@ public class GamePanel extends JPanel {
 
     static {
         try {
-            img = ImageIO.read(new File("placeholder.png"));
+            img = ImageIO.read(new File("src/res/placeholder.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,7 +82,7 @@ public class GamePanel extends JPanel {
     }
 
     public Dimension getOptimalDimension() {
-        return new Dimension(panelWidth, panelHeight + 30); // ~30 magas az ablak felso csikja.
+        return new Dimension(panelWidth, panelHeight + 29); // ~30 magas az ablak felso csikja.
     }
 
     @Override
