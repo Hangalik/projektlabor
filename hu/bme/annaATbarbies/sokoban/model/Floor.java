@@ -44,7 +44,14 @@ public class Floor {
         deadWorkers = new ArrayList<>();
         deadBoxes = new ArrayList<>();
     }
-
+    private Controller GetWorker_byID(int ID) {
+    	Controller c=new Worker(0);
+    	for(int i=0;i<workers.size();i++) {
+    		if(workers.get(i).GetID()==ID)c=workers.get(i);
+    	}
+    	return c;
+    	
+    }
 
     /**
      * Minden lepesnel ellenorzi, hogy veget ert-e a jatek. Ha igen, akkor meghivja a Game osztaly finish() metodusat.
@@ -95,7 +102,7 @@ public class Floor {
      */
     public void activePlayerMoves(Direction dir) {
         logger.debug("irany: " + dir.toString());
-        workers.get(activeWorker).step(dir);
+        GetWorker_byID(activeWorker).step(dir);
     }
 
     /**
@@ -103,9 +110,9 @@ public class Floor {
      */
     public void activePlayerlubricates(String type) {
         if (type.equals("oil"))
-            workers.get(activeWorker).lubricateOil();
+        	GetWorker_byID(activeWorker).lubricateOil();
         else if (type.equals("honey"))
-            workers.get(activeWorker).lubricateHoney();
+        	GetWorker_byID(activeWorker).lubricateHoney();
     }
 
     /**

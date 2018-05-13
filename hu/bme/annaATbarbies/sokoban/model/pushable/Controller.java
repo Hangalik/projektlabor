@@ -21,6 +21,12 @@ public interface Controller {
      * Ha a jatekos jo helyre tolt egy ladat, pontot ad neki.
      */
     void gainPoint();
+    
+    /**
+     * Vissza adja a játékos ID-ét
+     * @return ID
+     */
+    int GetID();
 
     /**
      * Osszekeni a mezot olajjal, ezzel csuszosabba teve a mezot.

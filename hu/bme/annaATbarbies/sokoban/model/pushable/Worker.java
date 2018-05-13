@@ -18,7 +18,10 @@ public class Worker extends Pushable implements Controller {
     public Worker(int id) {
     	ID=id;
     }
-    
+    @Override
+    public int GetID() {
+    	return ID;
+    }
     //a jatekos lep
     @Override
     public void step(Direction dir) {
@@ -94,7 +97,7 @@ public class Worker extends Pushable implements Controller {
             }                                            //ha nem, akkor nem lep sehova
         }
     }
-
+    
     /**
      * Definialja, hogy mi tortenik, ha egy munkas tolta meg.
      *
