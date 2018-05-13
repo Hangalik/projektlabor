@@ -55,7 +55,7 @@ public class Controller {
     public final AbstractAction lubricateAction = new AbstractAction() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Floor.getInstance().setActiveWorker(0);
+            Floor.getInstance().setActiveWorker(Floor.getInstance().getActiveWorker());
             switch (e.getActionCommand()) {
                 case "q":
                     Floor.getInstance().activePlayerlubricates("oil");

@@ -85,6 +85,13 @@ public class Floor {
     }
 
     /**
+     * Visszatér az aktív játékos sorszámával
+     */
+    public int getActiveWorker(){
+        return  activeWorker;
+    }
+
+    /**
      * meghivja az eppen aktiv jatekos gainPoint() metodusat.
      */
     public void rewardCurrentPlayer() {
@@ -98,12 +105,10 @@ public class Floor {
      * kiválasztja a következő jatekost
      */
     public int nextTurn(){
-        int id;
-        if(activeWorker+1>=numberOfWorkers)
-            id=0;
-        else
-            id=activeWorker+1;
-        while(id<numberOfWorkers){
+        int id=activeWorker+1;
+        while(true){
+            if(id>numberOfWorkers)
+                id=1;
             for(int j=0;j<workers.size();j++){
                 if(workers.get(j).getID()==id) {
                     activeWorker=id;
@@ -112,7 +117,6 @@ public class Floor {
             }
             id++;
         }
-        return activeWorker;
     }
 
     /**
