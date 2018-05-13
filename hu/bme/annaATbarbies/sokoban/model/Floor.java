@@ -45,7 +45,7 @@ public class Floor {
         deadWorkers = new ArrayList<>();
         deadBoxes = new ArrayList<>();
         numberOfWorkers = 0;
-        activeWorker = 0;
+        activeWorker = 1;
     }
 
     public Field[][] getFloor() {
