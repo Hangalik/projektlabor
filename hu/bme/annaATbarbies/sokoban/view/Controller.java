@@ -18,7 +18,7 @@ public class Controller {
     }
 
     public void createGame() {
-        Floor.getInstance().Initialize("src/res/Test_Lvl3.txt");
+        Floor.getInstance().Initialize("src/res/Test_Lvl4.txt");
         game = new GameWindow(this);
         game.createAndShow();
     }
@@ -56,7 +56,6 @@ public class Controller {
             } else {
                 Floor.getInstance().nextTurn();
             }
-
         }
     };
 

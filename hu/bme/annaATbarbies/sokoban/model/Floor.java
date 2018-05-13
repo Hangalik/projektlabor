@@ -68,38 +68,31 @@ public class Floor {
     }
 
     /**
-     * Minden lepesnel ellenorzi, hogy veget ert-e a jatek. Ha igen, akkor igazzal ter vissza.
+     * Minden lepesnel ellenorzi, hogy veget ert-e a jatek. Ha igen, akkor meghivja a Game osztaly finish() metodusat.
      */
     public boolean gameOver() {
 
         boolean finished = false;
 
-        if (workers.size() == 0) {
-        	logger.debug("Nincs tobb munkas a palyan.");
-        	finished = true;
-        }
+        if (workers.size() == 0)
+            finished = true;
 
-        if (boxes.size() == 0) {
-        	logger.debug("Nincs tobb lada a palyan.");
-        	finished = true;
-        }
+        if (boxes.size() == 0)
+            finished = true;
 
-        logger.debug("Ladak tolhatosaganak ellenorzese.");
-        boolean anyBoxPushable = true; //false;
-        /*for (Box box : boxes) {
+        boolean anyBoxPushable = false;
+        for (Box box : boxes) {
             if (box.amIPushable()) {
                 anyBoxPushable = true;
             }
-        }*/
+        }
 
         if (finished || !anyBoxPushable) {
-            logger.debug("Jatek befejezodott.");
+            //Game.getInstance().finish();
+            logger.debug("Jatek befejezodott");
             return true;
         }
-        else {
-        	logger.debug("A jatek meg tart.");
-        	return false;
-        }
+        return false;
     }
 
     /**
