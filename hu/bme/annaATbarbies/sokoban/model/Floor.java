@@ -44,7 +44,8 @@ public class Floor {
         boxes = new ArrayList<>();
         deadWorkers = new ArrayList<>();
         deadBoxes = new ArrayList<>();
-        numberOfWorkers=0;
+        numberOfWorkers = 0;
+        activeWorker = 0;
     }
 
     public Field[][] getFloor() {
@@ -56,6 +57,14 @@ public class Floor {
         ret.addAll(workers);
         ret.addAll(deadWorkers);
         return ret;
+    }
+
+    private Controller getWorkerByID(int ID) {
+        Controller c = new Worker(0);
+        for (int i = 0; i < workers.size(); i++) {
+            if (workers.get(i).getID() == ID) c = workers.get(i);
+        }
+        return c;
     }
 
     /**
@@ -87,32 +96,30 @@ public class Floor {
     /**
      * Visszatér az aktív játékos sorszámával
      */
-    public int getActiveWorker(){
-        return  activeWorker;
+    public int getActiveWorker() {
+        return activeWorker;
     }
 
     /**
      * meghivja az eppen aktiv jatekos gainPoint() metodusat.
      */
     public void rewardCurrentPlayer() {
-
-        workers.get(activeWorker).gainPoint();
+        getWorkerByID(activeWorker).gainPoint();
         logger.debug("Jatekos pontot kapott");
-
     }
 
     /**
      * kiválasztja a következő jatekost
      */
-    public int nextTurn(){
-        int id=activeWorker+1;
-        while(true){
-            if(id>numberOfWorkers)
-                id=1;
-            for(int j=0;j<workers.size();j++){
-                if(workers.get(j).getID()==id) {
-                    activeWorker=id;
-                    return id;
+    public void nextTurn() {
+        int id = activeWorker + 1;
+        while (true) {
+            if (id > numberOfWorkers)
+                id = 1;
+            for (int j = 0; j < workers.size(); j++) {
+                if (workers.get(j).getID() == id) {
+                    activeWorker = id;
+                    return;
                 }
             }
             id++;
@@ -132,7 +139,7 @@ public class Floor {
      */
     public void activePlayerMoves(Direction dir) {
         logger.debug("irany: " + dir.toString());
-        workers.get(activeWorker).step(dir);
+        getWorkerByID(activeWorker).step(dir);
     }
 
     /**
@@ -140,9 +147,9 @@ public class Floor {
      */
     public void activePlayerlubricates(String type) {
         if (type.equals("oil"))
-            workers.get(activeWorker).lubricateOil();
+            getWorkerByID(activeWorker).lubricateOil();
         else if (type.equals("honey"))
-            workers.get(activeWorker).lubricateHoney();
+            getWorkerByID(activeWorker).lubricateHoney();
     }
 
     /**

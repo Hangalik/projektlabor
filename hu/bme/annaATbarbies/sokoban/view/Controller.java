@@ -18,7 +18,7 @@ public class Controller {
     }
 
     public void createGame() {
-        Floor.getInstance().Initialize("src/res/Test_Lvl4.txt");
+        Floor.getInstance().Initialize("src/res/Test_Lvl2.txt");
         game = new GameWindow(this);
         game.createAndShow();
     }
@@ -26,7 +26,7 @@ public class Controller {
     public final AbstractAction stepAction = new AbstractAction() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Floor.getInstance().setActiveWorker(Floor.getInstance().nextTurn());
+            Floor.getInstance().setActiveWorker(Floor.getInstance().getActiveWorker());
             switch (e.getActionCommand()) {
                 case "w":
                     Floor.getInstance().activePlayerMoves(Direction.UP);
@@ -48,6 +48,7 @@ public class Controller {
                     return;
             }
             game.repaintNeeded();
+            Floor.getInstance().nextTurn();
         }
     };
 

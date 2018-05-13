@@ -149,7 +149,7 @@ public class Worker extends Pushable implements Controller {
             }                                            //ha nem, akkor nem lep sehova
         }
     }
-
+    
     /**
      * Definialja, hogy mi tortenik, ha egy munkas tolta meg.
      *
