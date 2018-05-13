@@ -7,7 +7,7 @@ import java.util.Random;
 public class MapGenerate {
 	public static void MapGenerate(int mapx,int mapy, int switch_trap,int holes, int box_target,int player) {
 		try {
-			BufferedWriter writer=new BufferedWriter(new FileWriter("palya.txt"));
+			BufferedWriter writer=new BufferedWriter(new FileWriter("src/res/palya.txt"));
 			
 			//Item Identifier
 			int ItemID=1;

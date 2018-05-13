@@ -10,10 +10,10 @@ field 2 3
 field 2 4
 block 2 0
 block 2 5
-worker 2 2
-worker 1 2
-worker 2 4
-worker 4 2
+worker 2 2 1
+worker 1 2 2
+worker 2 4 3
+worker 4 2 4
 box 2 1
 box 2 3
 box 3 2
