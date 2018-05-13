@@ -149,7 +149,7 @@ public class MapGenerate {
 			
 			
 			//A File ba kiírás a csapdák kivételével, mapx,mapy eredeti visszaállítása
-			//mapx++;mapy++;
+			mapx++;mapy++;
 			int playerID=1;
 			for(int i=0;i<mapx;i++) {
 				for(int j=0;j<mapy;j++) {
@@ -163,8 +163,7 @@ public class MapGenerate {
 						writer.newLine();
 						break;
 					case 2:
-						writer.write("worker "+i+" "+j+" "+playerID);
-						playerID++;
+						writer.write("field "+i+" "+j);
 						writer.newLine();
 						break;
 					case 3: 
@@ -180,6 +179,24 @@ public class MapGenerate {
 						writer.newLine();
 						break;
 					case 6:
+						writer.write("field "+i+" "+j);
+						writer.newLine();
+						break;
+					default:
+						break;
+					
+					}
+				}
+			}
+			for(int i=0;i<mapx;i++) {
+				for(int j=0;j<mapy;j++) {
+					switch(map[i][j]) {
+					case 2:
+						writer.write("worker "+i+" "+j+" "+playerID);
+						playerID++;
+						writer.newLine();
+						break;
+					case 6:
 						writer.write("box "+i+" "+j);
 						writer.newLine();
 						break;
@@ -189,7 +206,6 @@ public class MapGenerate {
 					}
 				}
 			}
-			
 			//Tapek és Switchek kiírása file ba
 			int s=7;
 			int t=8;
@@ -207,6 +223,7 @@ public class MapGenerate {
 				}
 				t+=2;
 				switch_trap--;
+				writer.newLine();
 			}
 			
 			//tombkiiras(map,mapx,mapy);

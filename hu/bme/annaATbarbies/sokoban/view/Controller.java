@@ -2,6 +2,7 @@ package hu.bme.annaATbarbies.sokoban.view;
 
 import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.Floor;
+import hu.bme.annaATbarbies.sokoban.model.MapGenerate;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +19,9 @@ public class Controller {
     }
 
     public void createGame() {
-        Floor.getInstance().Initialize("src/res/Test_Lvl4.txt");
+    	MapGenerate map= new MapGenerate();
+    	map.MapGenerate(10,10,3,3,4,2); //Tábla generálás
+        Floor.getInstance().Initialize("src/res/Palya.txt");
         game = new GameWindow(this);
         game.createAndShow();
     }
