@@ -43,15 +43,14 @@ public class GameWindow extends JFrame {
         setSize(gamePanel.getOptimalDimension());
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
-        
     }
 
     public void repaintNeeded() {
         gamePanel.repaint();
     }
-    
+
     public void disableInput() {
-    	gamePanel.getInputMap(IFW).clear();
+        gamePanel.getInputMap(IFW).clear();
     }
 
 }

@@ -61,7 +61,7 @@ public class GamePanel extends JPanel {
 
         // Optimalis cella magassag kiszamolasa.
         i = 0; //minCellHeight;
-        while(i * y < minPanelHeight && i < maxCellWidth) {
+        while (i * y < minPanelHeight && i < maxCellWidth) {
             i++;
         }
         int minimalCellHeight = i;

@@ -19,9 +19,8 @@ public class Controller {
     }
 
     public void createGame() {
-    	MapGenerate map=new MapGenerate();
-    	map.MapGenerate(10, 10, 2, 3, 5, 2);
-        Floor.getInstance().Initialize("src/res/Test_Lvl4.txt");
+        MapGenerate.generateMap(10, 10, 2, 3, 5, 2);
+        Floor.getInstance().Initialize("src/res/palya.txt");
         game = new GameWindow(this);
         game.createAndShow();
     }
@@ -61,7 +60,6 @@ public class Controller {
             }
         }
     };
-
 
     public final AbstractAction lubricateAction = new AbstractAction() {
         @Override
