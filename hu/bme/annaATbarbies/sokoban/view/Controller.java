@@ -26,7 +26,7 @@ public class Controller {
     public final AbstractAction stepAction = new AbstractAction() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Floor.getInstance().setActiveWorker(0);
+            Floor.getInstance().setActiveWorker(Floor.getInstance().nextTurn());
             switch (e.getActionCommand()) {
                 case "w":
                     Floor.getInstance().activePlayerMoves(Direction.UP);
@@ -50,6 +50,7 @@ public class Controller {
             game.repaintNeeded();
         }
     };
+
 
     public final AbstractAction lubricateAction = new AbstractAction() {
         @Override

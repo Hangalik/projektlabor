@@ -27,6 +27,7 @@ public class Floor {
     private ArrayList<Controller> deadWorkers;
     private ArrayList<Pushable> deadBoxes;
     private int activeWorker;
+    private int numberOfWorkers;
 
     private Field floor[][];
 
@@ -43,6 +44,7 @@ public class Floor {
         boxes = new ArrayList<>();
         deadWorkers = new ArrayList<>();
         deadBoxes = new ArrayList<>();
+        numberOfWorkers=0;
     }
 
     public Field[][] getFloor() {
@@ -90,6 +92,27 @@ public class Floor {
         workers.get(activeWorker).gainPoint();
         logger.debug("Jatekos pontot kapott");
 
+    }
+
+    /**
+     * kiválasztja a következő jatekost
+     */
+    public int nextTurn(){
+        int id;
+        if(activeWorker+1>=numberOfWorkers)
+            id=0;
+        else
+            id=activeWorker+1;
+        while(id<numberOfWorkers){
+            for(int j=0;j<workers.size();j++){
+                if(workers.get(j).getID()==id) {
+                    activeWorker=id;
+                    return id;
+                }
+            }
+            id++;
+        }
+        return activeWorker;
     }
 
     /**
@@ -185,6 +208,7 @@ public class Floor {
                     case "worker":
                         p = new Worker(Integer.parseInt(splitLine[3]));
                         workers.add((Worker) p);
+                        numberOfWorkers++;
                         break;
 
                     default:

@@ -68,6 +68,11 @@ public class Worker extends Pushable implements Controller {
         return point;
     }
 
+    @Override
+    public int getID(){
+        return ID;
+    }
+
     //a jatekos lep
     @Override
     public void step(Direction dir) {
