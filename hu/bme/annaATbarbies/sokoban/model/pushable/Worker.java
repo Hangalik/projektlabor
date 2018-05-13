@@ -10,10 +10,26 @@ public class Worker extends Pushable implements Controller {
     private static final int initialStrength = 10;
 
     private enum WorkerState {
-        STEPPING, PUSHED_BY_BOX, PUSHED_BY_WORKER
+        STEPPING, PUSHED_BY_BOX, PUSHED_BY_WORKER;
+
+    }
+    private WorkerState workerState;
+    private int point;
+
+    public Worker() {
+        this.point = 0;
     }
 
-    private WorkerState workerState;
+    // Rendezeshez.
+    @Override
+    public int compareTo(Controller o) {
+        return o.getPoint() - this.getPoint();
+    }
+
+    @Override
+    public int getPoint() {
+        return point;
+    }
 
     //a jatekos lep
     @Override
@@ -45,6 +61,7 @@ public class Worker extends Pushable implements Controller {
 
     @Override
     public void gainPoint() {
+        point++;
         logger.debug("gainPoint");
     }
 

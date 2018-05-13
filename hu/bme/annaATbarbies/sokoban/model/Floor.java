@@ -49,6 +49,13 @@ public class Floor {
         return floor;
     }
 
+    public ArrayList<Controller> getAllWorkers() {
+        ArrayList<Controller> ret = new ArrayList<>();
+        ret.addAll(workers);
+        ret.addAll(deadWorkers);
+        return ret;
+    }
+
     /**
      * Minden lepesnel ellenorzi, hogy veget ert-e a jatek. Ha igen, akkor meghivja a Game osztaly finish() metodusat.
      */
