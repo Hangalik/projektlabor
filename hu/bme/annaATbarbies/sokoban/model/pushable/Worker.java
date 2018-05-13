@@ -13,7 +13,6 @@ public class Worker extends Pushable implements Controller {
 
     private static final Logger logger = Logger.getLogger(Worker.class);
     private static final int initialStrength = 10;
-
     private static BufferedImage player1Img = null;
     private static BufferedImage player2Img = null;
     private static BufferedImage player3Img = null;
@@ -32,17 +31,29 @@ public class Worker extends Pushable implements Controller {
 
     @Override
     public BufferedImage getImg() {
-        return player1Img;
+        switch(ID % 4) {
+            default:
+            case 0:
+                return player1Img;
+            case 1:
+                return player2Img;
+            case 2:
+                return player3Img;
+            case 3:
+                return player4Img;
+        }
     }
 
     private enum WorkerState {
         STEPPING, PUSHED_BY_BOX, PUSHED_BY_WORKER;
-
     }
+
     private WorkerState workerState;
+    private int ID;
     private int point;
 
-    public Worker() {
+    public Worker(int id) {
+        ID = id;
         this.point = 0;
     }
 
