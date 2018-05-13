@@ -1,11 +1,12 @@
 package hu.bme.annaATbarbies.sokoban.view;
 
+import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.Floor;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class Controller extends AbstractAction{
+public class Controller {
 
     private MenuWindow menu;
     private GameWindow game;
@@ -17,41 +18,56 @@ public class Controller extends AbstractAction{
     }
 
     public void createGame() {
-        Floor.getInstance().Initialize("src/res/Test_Lvl1.txt");
+        Floor.getInstance().Initialize("src/res/Test_Lvl4.txt");
         game = new GameWindow(this);
         game.createAndShow();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()) {
-            case "w":
+    public final AbstractAction stepAction = new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Floor.getInstance().setActiveWorker(0);
+            switch (e.getActionCommand()) {
+                case "w":
+                    Floor.getInstance().activePlayerMoves(Direction.UP);
+                    break;
 
-                break;
+                case "a":
+                    Floor.getInstance().activePlayerMoves(Direction.LEFT);
+                    break;
 
-            case "a":
+                case "s":
+                    Floor.getInstance().activePlayerMoves(Direction.DOWN);
+                    break;
 
-                break;
+                case "d":
+                    Floor.getInstance().activePlayerMoves(Direction.RIGHT);
+                    break;
 
-            case "s":
-
-                break;
-
-            case "d":
-
-                break;
-
-            case "q":
-
-                break;
-
-            case "e":
-
-                break;
-
-            default:
-                return;
+                default:
+                    return;
+            }
+            game.repaintNeeded();
         }
-        game.repaintNeeded();
-    }
+    };
+
+    public final AbstractAction lubricateAction = new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Floor.getInstance().setActiveWorker(0);
+            switch (e.getActionCommand()) {
+                case "q":
+                    Floor.getInstance().activePlayerlubricates("oil");
+                    break;
+
+                case "e":
+                    Floor.getInstance().activePlayerlubricates("honey");
+                    break;
+
+                default:
+                    return;
+            }
+            game.repaintNeeded();
+        }
+    };
 }

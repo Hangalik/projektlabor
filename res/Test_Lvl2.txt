@@ -1,0 +1,20 @@
+6 6
+field 0 2
+field 1 2
+field 3 2
+field 4 2
+field 5 2
+field 2 1
+field 2 2
+field 2 3
+field 2 4
+block 2 0
+block 2 5
+worker 2 2
+worker 1 2
+worker 2 4
+worker 4 2
+box 2 1
+box 2 3
+box 3 2
+box 5 2

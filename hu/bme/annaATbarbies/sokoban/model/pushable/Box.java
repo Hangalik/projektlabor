@@ -6,12 +6,32 @@ import hu.bme.annaATbarbies.sokoban.model.field.Field;
 import hu.bme.annaATbarbies.sokoban.model.field.Switch;
 import org.apache.log4j.Logger;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Egy ladat reprezental. Definialja, hogy egy lada hogyan tolhato, illetve visszajelzest ad a lada allapotarol.
  */
 public class Box extends Pushable {
 
     private static final Logger logger = Logger.getLogger(Box.class);
+
+    private static BufferedImage boxImg = null;
+
+    static {
+        try {
+            boxImg = ImageIO.read(new File("src/res/box.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public BufferedImage getImg() {
+        return boxImg;
+    }
 
     /**
      * Definialja, hogy mi tortenik, ha egy lada tolta meg. Ekkor ha a kovetkezo mezo ures, ratolodik.

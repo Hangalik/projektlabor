@@ -4,10 +4,36 @@ import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.field.Field;
 import org.apache.log4j.Logger;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public class Worker extends Pushable implements Controller {
 
     private static final Logger logger = Logger.getLogger(Worker.class);
     private static final int initialStrength = 10;
+
+    private static BufferedImage player1Img = null;
+    private static BufferedImage player2Img = null;
+    private static BufferedImage player3Img = null;
+    private static BufferedImage player4Img = null;
+
+    static {
+        try {
+            player1Img = ImageIO.read(new File("src/res/worker1.png"));
+            player2Img = ImageIO.read(new File("src/res/worker2.png"));
+            player3Img = ImageIO.read(new File("src/res/worker3.png"));
+            player4Img = ImageIO.read(new File("src/res/worker4.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public BufferedImage getImg() {
+        return player1Img;
+    }
 
     private enum WorkerState {
         STEPPING, PUSHED_BY_BOX, PUSHED_BY_WORKER;

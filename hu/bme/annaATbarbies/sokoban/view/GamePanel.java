@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -19,15 +20,15 @@ public class GamePanel extends JPanel {
     private static final int maxPanelWidth = 1920;
     private static final int maxPanelHeight = 1080;
 
-    private static final int minCellWidth = 30;
-    private static final int maxCellWidth = 80;
-    private static final int optimalCellWidth = 50;
+    private static final int minCellWidth = 38;
+    private static final int maxCellWidth = 500;
+    private static final int optimalCellWidth = 100;
 
-    private static Image img = null;
+    private static BufferedImage placeHolderOriginal = null;
 
     static {
         try {
-            img = ImageIO.read(new File("src/res/placeholder.png"));
+            placeHolderOriginal = ImageIO.read(new File("src/res/placeholder.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -97,12 +98,26 @@ public class GamePanel extends JPanel {
 
         logger.debug(String.format("xOffset: %d; yOffset: %d;", xOffset, yOffset));
 
-        // Ez nem igy lesz, hanem majd a ket foron belul kell kiszamolni az ujat.
-        Image usedImage = img.getScaledInstance(cellWidth, cellHeight, Image.SCALE_DEFAULT);
+        Image placeHolderScaled = placeHolderOriginal.getScaledInstance(cellWidth, cellHeight, Image.SCALE_DEFAULT);
 
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                g.drawImage(usedImage, xOffset + i * cellWidth, yOffset + j * cellHeight, null);
+                int xPos = xOffset + i * cellWidth, yPos = yOffset + j * cellHeight;
+
+                // Ha nem lett inicializalva a mezo, akkor egy alapertelmezett placeholder kep jelenik meg helyette.
+                if (floor[i][j] == null) {
+                    g.drawImage(placeHolderScaled, xPos, yPos, null);
+                } else {
+                    // Eloszor a mezot rajzoljuk ki.
+                    Image scaledFieldImg = floor[i][j].getImg().getScaledInstance(cellWidth, cellHeight, Image.SCALE_DEFAULT);
+                    g.drawImage(scaledFieldImg, xPos, yPos, null);
+
+                    // Ha pedig van rajta valami, akkor azt rarajzoljuk.
+                    if (floor[i][j].getObstacle() != null) {
+                        Image scaledObstacleImage = floor[i][j].getObstacle().getImg().getScaledInstance(cellWidth, cellHeight, Image.SCALE_DEFAULT);
+                        g.drawImage(scaledObstacleImage, xPos, yPos, null);
+                    }
+                }
             }
         }
     }

@@ -24,16 +24,16 @@ public class MenuWindow extends JFrame{
             controller.createGame();
         });
 
-        JButton whatButton = new JButton();
-        whatButton.setSize(new Dimension(200, 32));
-        whatButton.setText("What");
+        JButton exitButton = new JButton();
+        exitButton.setSize(new Dimension(200, 32));
+        exitButton.setText("Exit");
 
-        whatButton.addActionListener(e -> {
-
+        exitButton.addActionListener(e -> {
+            System.exit(0);
         });
 
         menuPanel.add(startButton);
-        menuPanel.add(whatButton);
+        menuPanel.add(exitButton);
 
         setContentPane(menuPanel);
         setSize(new Dimension(600, 600));
