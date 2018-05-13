@@ -145,9 +145,12 @@ public class Box extends Pushable {
      */
     private boolean testMovability(Direction d) {
     	logger.debug("Mozgathatosag tesztelese.");
-    	Field iField = field;
+    	Field iField = this.field;
     	while(iField.getObstacle() instanceof Box) {
     		iField = iField.getNeighbor(d);
+    		if(iField == null) {
+    			return false;
+    		}
     	}
     	if(iField instanceof Block) {
     		logger.debug("A lada nem mozdithato el.");
