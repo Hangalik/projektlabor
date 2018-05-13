@@ -60,7 +60,7 @@ public abstract class Pushable {
      * TODO: No description in the doc...
      */
     public void die() {
-        field.removePushable();    //eltavolitja a mezororol
+        field.removePushable();    //eltavolitja a mezorol
         Floor.getInstance().pushableDied(this);    //szol a palyanak, hogy egy jatekossal kevesebb van
     }
 

@@ -18,7 +18,7 @@ public class Controller {
     }
 
     public void createGame() {
-        Floor.getInstance().Initialize("src/res/Test_Lvl2.txt");
+        Floor.getInstance().Initialize("src/res/Test_Lvl3.txt");
         game = new GameWindow(this);
         game.createAndShow();
     }
@@ -48,7 +48,15 @@ public class Controller {
                     return;
             }
             game.repaintNeeded();
-            Floor.getInstance().nextTurn();
+
+            if (Floor.getInstance().gameOver()) {
+                game.disableInput();
+                result = new ResultWindow();
+                result.createAndShow();
+            } else {
+                Floor.getInstance().nextTurn();
+            }
+
         }
     };
 

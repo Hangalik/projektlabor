@@ -68,28 +68,37 @@ public class Floor {
     }
 
     /**
-     * Minden lepesnel ellenorzi, hogy veget ert-e a jatek. Ha igen, akkor meghivja a Game osztaly finish() metodusat.
+     * Minden lepesnel ellenorzi, hogy veget ert-e a jatek. Ha igen, akkor igazzal ter vissza.
      */
-    public void gameOver() {
+    public boolean gameOver() {
 
         boolean finished = false;
 
-        if (workers.size() == 0)
-            finished = true;
+        if (workers.size() == 0) {
+        	logger.debug("Nincs tobb munkas a palyan.");
+        	finished = true;
+        }
 
-        if (boxes.size() == 0)
-            finished = true;
+        if (boxes.size() == 0) {
+        	logger.debug("Nincs tobb lada a palyan.");
+        	finished = true;
+        }
 
-        boolean anyBoxPushable = false;
-        for (Box box : boxes) {
+        logger.debug("Ladak tolhatosaganak ellenorzese.");
+        boolean anyBoxPushable = true; //false;
+        /*for (Box box : boxes) {
             if (box.amIPushable()) {
                 anyBoxPushable = true;
             }
-        }
+        }*/
 
         if (finished || !anyBoxPushable) {
-            //Game.getInstance().finish();
-            logger.debug("Jatek befejezodott");
+            logger.debug("Jatek befejezodott.");
+            return true;
+        }
+        else {
+        	logger.debug("A jatek meg tart.");
+        	return false;
         }
     }
 
@@ -313,19 +322,30 @@ public class Floor {
      * @param p
      */
     public void pushableDied(Pushable p) {
+        int idx = -1;
         for (int i = 0; i < workers.size(); i++) {
             if (workers.get(i).equals(p)) {
-                Controller removed = workers.remove(i);
-                deadWorkers.add(removed);
-                logger.debug("Munkas meghalt");
+                idx = i;
+                break;
             }
         }
+        if (idx >= 0) {
+            Controller removed = workers.remove(idx);
+            deadWorkers.add(removed);
+            logger.debug("Munkas meghalt");
+        }
+
+        idx = -1;
         for (int i = 0; i < boxes.size(); i++) {
             if (boxes.get(i).equals(p)) {
-                Pushable removed = boxes.remove(i);
-                deadBoxes.add(removed);
-                logger.debug("Doboz eltunt");
+                idx = i;
+                break;
             }
+        }
+        if (idx >= 0) {
+            Pushable removed = boxes.remove(idx);
+            deadBoxes.add(removed);
+            logger.debug("Doboz eltunt");
         }
     }
 

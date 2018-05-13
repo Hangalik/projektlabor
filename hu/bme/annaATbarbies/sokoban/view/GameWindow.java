@@ -41,4 +41,8 @@ public class GameWindow extends JFrame {
     public void repaintNeeded() {
         gamePanel.repaint();
     }
+    
+    public void disableInput() {
+    	gamePanel.getInputMap(IFW).clear();
+    }
 }
