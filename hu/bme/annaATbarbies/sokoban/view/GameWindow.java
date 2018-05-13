@@ -7,14 +7,15 @@ public class GameWindow extends JFrame {
 
     private static final int IFW = JComponent.WHEN_IN_FOCUSED_WINDOW;
     private static final String MOVE = "move";
-    public static final String LUBRICATE = "lubricate";
+    private static final String LUBRICATE = "lubricate";
 
     private GamePanel gamePanel;
     private Controller controller;
 
-    public GameWindow(Controller controller) throws HeadlessException {
+    public GameWindow(Controller controller) {
         super("Game");
         this.controller = controller;
+        setLayout(new FlowLayout());
     }
 
     public void createAndShow() {
@@ -27,11 +28,12 @@ public class GameWindow extends JFrame {
         gamePanel.getInputMap(IFW).put(KeyStroke.getKeyStroke("Q"), LUBRICATE);
         gamePanel.getInputMap(IFW).put(KeyStroke.getKeyStroke("E"), LUBRICATE);
 
-        gamePanel.getActionMap().put(MOVE, controller);
-        gamePanel.getActionMap().put(LUBRICATE, controller);
+        gamePanel.getActionMap().put(MOVE, controller.stepAction);
+        gamePanel.getActionMap().put(LUBRICATE, controller.lubricateAction);
 
+        setResizable(false);
         setContentPane(gamePanel);
-        setSize(new Dimension(600, 600));
+        setSize(gamePanel.getOptimalDimension());
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
     }

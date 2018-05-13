@@ -3,11 +3,36 @@ package hu.bme.annaATbarbies.sokoban.model.field;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 import org.apache.log4j.Logger;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 /**
  * A jatekban levo lyukat reprezentalja. Definialja, hogy mi tortenik, ha a lyukra lep egy tolhato objektum.
  */
 public class Hole extends Field {
-    Logger logger = Logger.getLogger(Hole.class);
+    private static final Logger logger = Logger.getLogger(Hole.class);
+
+    private static BufferedImage holeImg = null;
+
+    static {
+        try {
+            holeImg = ImageIO.read(new File("src/res/field.png"));
+            BufferedImage holeTop = ImageIO.read(new File("src/res/hole.png"));
+            Graphics g = holeImg.createGraphics();
+            g.drawImage(holeTop, 0, 0, null);
+            g.dispose();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public BufferedImage getImg() {
+        return holeImg;
+    }
 
     /**
      * leveszi a ratolt tolhato objektumot a palyarol.
@@ -29,7 +54,6 @@ public class Hole extends Field {
      */
     @Override
     public Pushable getObstacle() {
-        logger.debug("A lyuk mezo nem ad vissza tolhato objektumot.");
         return null;
     }
 }
