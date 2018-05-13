@@ -2,6 +2,8 @@ package hu.bme.annaATbarbies.sokoban.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class GameWindow extends JFrame {
 
@@ -16,6 +18,11 @@ public class GameWindow extends JFrame {
         super("Game");
         this.controller = controller;
         setLayout(new FlowLayout());
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                new ResultWindow();
+            }
+        });
     }
 
     public void createAndShow() {
@@ -36,6 +43,7 @@ public class GameWindow extends JFrame {
         setSize(gamePanel.getOptimalDimension());
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
+        
     }
 
     public void repaintNeeded() {
@@ -45,4 +53,5 @@ public class GameWindow extends JFrame {
     public void disableInput() {
     	gamePanel.getInputMap(IFW).clear();
     }
+
 }

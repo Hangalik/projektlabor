@@ -15,7 +15,6 @@ public class MenuWindow extends JFrame{
     public void createAndShow() {
 
         JButton startButton = new JButton();
-        startButton.setSize(new Dimension(200, 32));
         startButton.setText("Start");
         startButton.setBackground(new Color(204,215,214));
         startButton.setForeground(new Color(164,7,40));
@@ -32,7 +31,6 @@ public class MenuWindow extends JFrame{
         });
 
         JButton exitButton = new JButton();
-        exitButton.setSize(new Dimension(200, 32));
         exitButton.setText("Exit");
         exitButton.setBackground(new Color(204,215,214));
         exitButton.setForeground(new Color(164,7,40));
