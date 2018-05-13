@@ -173,7 +173,7 @@ public class Floor {
                         break;
 
                     case "worker":
-                        p = new Worker();
+                        p = new Worker(Integer.parseInt(splitLine[3]));
                         workers.add((Worker) p);
                         break;
 

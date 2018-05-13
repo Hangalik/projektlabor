@@ -8,13 +8,17 @@ public class Worker extends Pushable implements Controller {
 
     private static final Logger logger = Logger.getLogger(Worker.class);
     private static final int initialStrength = 10;
-
+    private static int ID;
     private enum WorkerState {
         STEPPING, PUSHED_BY_BOX, PUSHED_BY_WORKER
     }
 
     private WorkerState workerState;
-
+    
+    public Worker(int id) {
+    	ID=id;
+    }
+    
     //a jatekos lep
     @Override
     public void step(Direction dir) {
