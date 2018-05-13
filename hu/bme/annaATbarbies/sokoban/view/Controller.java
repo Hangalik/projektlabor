@@ -54,7 +54,6 @@ public class Controller {
             if (Floor.getInstance().gameOver()) {
                 game.disableInput();
                 result = new ResultWindow();
-                result.createAndShow();
             } else {
                 Floor.getInstance().nextTurn();
             }
