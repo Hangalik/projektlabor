@@ -10,7 +10,6 @@ public class MenuWindow extends JFrame{
     public MenuWindow(Controller controller) throws HeadlessException {
         super("Menu");
         this.controller = controller;
-        
     }
 
     public void createAndShow() {
@@ -45,7 +44,7 @@ public class MenuWindow extends JFrame{
         exitButton.setMinimumSize(new Dimension(300, 100));
 
         exitButton.addActionListener(e -> {
-        	super.dispose();
+            System.exit(0);
         });
 
         JPanel panel = new JPanel();

@@ -28,8 +28,8 @@ public class GameWindow extends JFrame {
         gamePanel.getInputMap(IFW).put(KeyStroke.getKeyStroke("Q"), LUBRICATE);
         gamePanel.getInputMap(IFW).put(KeyStroke.getKeyStroke("E"), LUBRICATE);
 
-        gamePanel.getActionMap().put(MOVE, controller);
-        gamePanel.getActionMap().put(LUBRICATE, controller);
+        gamePanel.getActionMap().put(MOVE, controller.stepAction);
+        gamePanel.getActionMap().put(LUBRICATE, controller.lubricateAction);
 
         setResizable(false);
         setContentPane(gamePanel);
@@ -40,5 +40,9 @@ public class GameWindow extends JFrame {
 
     public void repaintNeeded() {
         gamePanel.repaint();
+    }
+    
+    public void disableInput() {
+    	gamePanel.getInputMap(IFW).clear();
     }
 }
