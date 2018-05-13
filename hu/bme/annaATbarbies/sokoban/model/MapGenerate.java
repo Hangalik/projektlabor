@@ -149,7 +149,7 @@ public class MapGenerate {
 			
 			
 			//A File ba kiírás a csapdák kivételével, mapx,mapy eredeti visszaállítása
-			mapx++;mapy++;
+			//mapx++;mapy++;
 			int playerID=1;
 			for(int i=0;i<mapx;i++) {
 				for(int j=0;j<mapy;j++) {
@@ -223,7 +223,6 @@ public class MapGenerate {
 				}
 				t+=2;
 				switch_trap--;
-				writer.newLine();
 			}
 			
 			//tombkiiras(map,mapx,mapy);

@@ -19,9 +19,9 @@ public class Controller {
     }
 
     public void createGame() {
-    	MapGenerate map= new MapGenerate();
-    	map.MapGenerate(10,10,3,3,4,2); //Tábla generálás
-        Floor.getInstance().Initialize("src/res/Palya.txt");
+    	MapGenerate map=new MapGenerate();
+    	map.MapGenerate(10, 10, 2, 3, 5, 2);
+        Floor.getInstance().Initialize("src/res/Test_Lvl4.txt");
         game = new GameWindow(this);
         game.createAndShow();
     }
