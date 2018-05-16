@@ -33,11 +33,11 @@ public class Field {
 
     static {
         try {
-            fieldImg = ImageIO.read(new File("src/res/field.png"));
-            honeyImg = ImageIO.read(new File("src/res/field.png"));
-            oilImg = ImageIO.read(new File("src/res/field.png"));
-            BufferedImage honeyTop = ImageIO.read(new File("src/res/honey.png"));
-            BufferedImage oilTop = ImageIO.read(new File("src/res/oil.png"));
+            fieldImg = ImageIO.read(new File("src/res_small/field.png"));
+            honeyImg = ImageIO.read(new File("src/res_small/field.png"));
+            oilImg = ImageIO.read(new File("src/res_small/field.png"));
+            BufferedImage honeyTop = ImageIO.read(new File("src/res_small/honey.png"));
+            BufferedImage oilTop = ImageIO.read(new File("src/res_small/oil.png"));
             Graphics g1 = honeyImg.createGraphics();
             Graphics g2 = oilImg.createGraphics();
             g1.drawImage(honeyTop, 0, 0, null);

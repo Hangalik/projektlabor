@@ -21,8 +21,8 @@ public class Trap extends Field {
 
     static {
         try {
-            holeImg = ImageIO.read(new File("src/res/field.png"));
-            BufferedImage holeTop = ImageIO.read(new File("src/res/hole.png"));
+            holeImg = ImageIO.read(new File("src/res_small/field.png"));
+            BufferedImage holeTop = ImageIO.read(new File("src/res_small/hole.png"));
             Graphics g = holeImg.createGraphics();
             g.drawImage(holeTop, 0, 0, null);
             g.dispose();

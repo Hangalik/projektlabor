@@ -19,8 +19,8 @@ public class Target extends Field {
 
     static{
         try{
-            targetImg = ImageIO.read(new File("src/res/field.png"));
-            BufferedImage targetTop = ImageIO.read(new File("src/res/target.png"));
+            targetImg = ImageIO.read(new File("src/res_small/field.png"));
+            BufferedImage targetTop = ImageIO.read(new File("src/res_small/target.png"));
             Graphics g = targetImg.createGraphics();
             g.drawImage(targetTop, 0, 0, null);
             g.dispose();

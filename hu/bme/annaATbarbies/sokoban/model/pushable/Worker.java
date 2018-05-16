@@ -20,10 +20,10 @@ public class Worker extends Pushable implements Controller {
 
     static {
         try {
-            player1Img = ImageIO.read(new File("src/res/worker1.png"));
-            player2Img = ImageIO.read(new File("src/res/worker2.png"));
-            player3Img = ImageIO.read(new File("src/res/worker3.png"));
-            player4Img = ImageIO.read(new File("src/res/worker4.png"));
+            player1Img = ImageIO.read(new File("src/res_small/worker1.png"));
+            player2Img = ImageIO.read(new File("src/res_small/worker2.png"));
+            player3Img = ImageIO.read(new File("src/res_small/worker3.png"));
+            player4Img = ImageIO.read(new File("src/res_small/worker4.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -21,7 +21,7 @@ public class GamePanel extends JPanel {
     private static final int maxPanelHeight = 1080;
 
     private static final int minCellWidth = 38;
-    private static final int maxCellWidth = 500;
+    private static final int maxCellWidth = 100;
     private static final int optimalCellWidth = 100;
 
     private static BufferedImage placeHolderOriginal = null;

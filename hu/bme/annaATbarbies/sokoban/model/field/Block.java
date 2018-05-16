@@ -22,8 +22,8 @@ public class Block extends Field {
 
     static{
         try{
-            blockImg = ImageIO.read(new File("src/res/field.png"));
-            BufferedImage blockTop = ImageIO.read(new File("src/res/block.png"));
+            blockImg = ImageIO.read(new File("src/res_small/field.png"));
+            BufferedImage blockTop = ImageIO.read(new File("src/res_small/block.png"));
             Graphics g = blockImg.createGraphics();
             g.drawImage(blockTop, 0, 0, null);
             g.dispose();

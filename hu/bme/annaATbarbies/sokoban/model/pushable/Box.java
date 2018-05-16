@@ -23,7 +23,7 @@ public class Box extends Pushable {
 
     static {
         try {
-            boxImg = ImageIO.read(new File("src/res/box.png"));
+            boxImg = ImageIO.read(new File("src/res_small/box.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

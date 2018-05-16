@@ -26,10 +26,10 @@ public class Switch extends Field {
 
     static{
         try{
-             switch1Image = ImageIO.read(new File("src/res/field.png"));
-             switch2Image = ImageIO.read(new File("src/res/field.png"));
-             BufferedImage switch1Top = ImageIO.read(new File("src/res/switch_left.png"));
-             BufferedImage switch2Top = ImageIO.read(new File("src/res/switch_right.png"));
+             switch1Image = ImageIO.read(new File("src/res_small/field.png"));
+             switch2Image = ImageIO.read(new File("src/res_small/field.png"));
+             BufferedImage switch1Top = ImageIO.read(new File("src/res_small/switch_left.png"));
+             BufferedImage switch2Top = ImageIO.read(new File("src/res_small/switch_right.png"));
              Graphics g1 = switch1Image.createGraphics();
              Graphics g2 = switch2Image.createGraphics();
              g1.drawImage(switch1Top, 0, 0, null);
