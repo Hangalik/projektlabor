@@ -1,0 +1,14 @@
+4 5
+field 2 0
+field 2 2
+field 2 3
+field 0 2 honey
+field 1 2 honey
+field 3 2
+switch 2 1 trap 0 0
+target 2 4
+worker 2 2 1
+box 0 2
+box 1 2
+box 2 1
+box 2 3

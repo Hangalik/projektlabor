@@ -5,7 +5,7 @@ import hu.bme.annaATbarbies.sokoban.model.Direction;
 /**
  * Interface a jatekos altal iranyithato dolgoknak.
  */
-public interface Controller {
+public interface Controller extends Comparable<Controller> {
 
     /**
      * Definialja, hogy mi tortenik, ha a jatekos lep egy megadott iranyba.
@@ -16,6 +16,18 @@ public interface Controller {
      * @param dir
      */
     void step(Direction dir);
+
+    /**
+     * Visszaadja az iranyithato objektum pontszamat.
+     * @return
+     */
+    int getPoint();
+
+    /**
+     * Visszaadja az munkas azonositoszamat.
+     * @return
+     */
+    int getID();
 
     /**
      * Ha a jatekos jo helyre tolt egy ladat, pontot ad neki.

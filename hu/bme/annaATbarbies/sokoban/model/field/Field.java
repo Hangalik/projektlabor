@@ -5,6 +5,11 @@ import hu.bme.annaATbarbies.sokoban.model.SurfaceContamination;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 import org.apache.log4j.Logger;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -14,13 +19,49 @@ import java.util.Map;
  * A tobbi palyaelem alaposzta.
  */
 public class Field {
-    Logger logger = Logger.getLogger(Field.class);
+    private static final Logger logger = Logger.getLogger(Field.class);
 
     //Field attributumok
     protected Pushable pushable;                                                    //A mezon tartozkodo tolhato objektum
     protected Map<Direction, Field> neighbor = new EnumMap<>(Direction.class);    //mezo szomszedjai "Direction" iranyokban
 
     protected SurfaceContamination contamination = SurfaceContamination.NONE;                                                //a mezo surlodasi tenyezoje
+
+    private static BufferedImage fieldImg = null;
+    private static BufferedImage honeyImg = null;
+    private static BufferedImage oilImg = null;
+
+    static {
+        try {
+            fieldImg = ImageIO.read(new File("src/res_small/field.png"));
+            honeyImg = ImageIO.read(new File("src/res_small/field.png"));
+            oilImg = ImageIO.read(new File("src/res_small/field.png"));
+            BufferedImage honeyTop = ImageIO.read(new File("src/res_small/honey.png"));
+            BufferedImage oilTop = ImageIO.read(new File("src/res_small/oil.png"));
+            Graphics g1 = honeyImg.createGraphics();
+            Graphics g2 = oilImg.createGraphics();
+            g1.drawImage(honeyTop, 0, 0, null);
+            g2.drawImage(oilTop, 0, 0, null);
+            g1.dispose();
+            g2.dispose();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public BufferedImage getImg() {
+        switch (contamination) {
+            default:
+            case NONE:
+                return fieldImg;
+
+            case OIL:
+                return oilImg;
+
+            case HONEY:
+                return honeyImg;
+        }
+    }
 
     /**
      * torli a mezon levo tolhato objektumot.
@@ -55,7 +96,6 @@ public class Field {
      * @return
      */
     public Pushable getObstacle() {
-        logger.debug("Lekertek a mezotol a tolhato objektumat.");
         return pushable;
     }
 

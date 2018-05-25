@@ -4,13 +4,38 @@ import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.pushable.Pushable;
 import org.apache.log4j.Logger;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 /**
  * A jatekban levo fal elemeket reprezentalja.
  * Definialja, hogy mi tortenik, ha valami ralep.
  */
 public class Block extends Field {
 
-    Logger logger = Logger.getLogger(Block.class);
+    private static final Logger logger = Logger.getLogger(Block.class);
+
+    private static BufferedImage blockImg = null;
+
+    static{
+        try{
+            blockImg = ImageIO.read(new File("src/res_small/field.png"));
+            BufferedImage blockTop = ImageIO.read(new File("src/res_small/block.png"));
+            Graphics g = blockImg.createGraphics();
+            g.drawImage(blockTop, 0, 0, null);
+            g.dispose();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public BufferedImage getImg() {
+        return blockImg;
+    }
 
     /**
      * nem helyezi magara a tolhato objektumot, mivel a falelemen nem allhat semmi.
@@ -35,7 +60,6 @@ public class Block extends Field {
      */
     @Override
     public Pushable getObstacle() {
-        logger.debug("A fal elem mezo nem ad vissza tolhato objektumot.");
         return null;
     }
 }

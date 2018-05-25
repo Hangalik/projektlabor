@@ -4,16 +4,74 @@ import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.field.Field;
 import org.apache.log4j.Logger;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public class Worker extends Pushable implements Controller {
 
     private static final Logger logger = Logger.getLogger(Worker.class);
     private static final int initialStrength = 10;
+    private static BufferedImage player1Img = null;
+    private static BufferedImage player2Img = null;
+    private static BufferedImage player3Img = null;
+    private static BufferedImage player4Img = null;
+
+    static {
+        try {
+            player1Img = ImageIO.read(new File("src/res_small/worker1.png"));
+            player2Img = ImageIO.read(new File("src/res_small/worker2.png"));
+            player3Img = ImageIO.read(new File("src/res_small/worker3.png"));
+            player4Img = ImageIO.read(new File("src/res_small/worker4.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public BufferedImage getImg() {
+        switch(ID % 4) {
+            default:
+            case 0:
+                return player1Img;
+            case 1:
+                return player2Img;
+            case 2:
+                return player3Img;
+            case 3:
+                return player4Img;
+        }
+    }
 
     private enum WorkerState {
-        STEPPING, PUSHED_BY_BOX, PUSHED_BY_WORKER
+        STEPPING, PUSHED_BY_BOX, PUSHED_BY_WORKER;
     }
 
     private WorkerState workerState;
+    private int ID;
+    private int point;
+
+    public Worker(int id) {
+        ID = id;
+        this.point = 0;
+    }
+
+    // Rendezeshez.
+    @Override
+    public int compareTo(Controller o) {
+        return o.getPoint() - this.getPoint();
+    }
+
+    @Override
+    public int getPoint() {
+        return point;
+    }
+
+    @Override
+    public int getID(){
+        return ID;
+    }
 
     //a jatekos lep
     @Override
@@ -45,6 +103,7 @@ public class Worker extends Pushable implements Controller {
 
     @Override
     public void gainPoint() {
+        point++;
         logger.debug("gainPoint");
     }
 
@@ -90,7 +149,7 @@ public class Worker extends Pushable implements Controller {
             }                                            //ha nem, akkor nem lep sehova
         }
     }
-
+    
     /**
      * Definialja, hogy mi tortenik, ha egy munkas tolta meg.
      *

@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * --singleton--
  */
 public class Floor {
-    Logger logger = Logger.getLogger(Floor.class);
+    public static final Logger logger = Logger.getLogger(Floor.class);
     private static Floor ourInstance;
 
     private ArrayList<Field> fields;
@@ -27,6 +27,7 @@ public class Floor {
     private ArrayList<Controller> deadWorkers;
     private ArrayList<Pushable> deadBoxes;
     private int activeWorker;
+    private int numberOfWorkers;
 
     private Field floor[][];
 
@@ -43,13 +44,33 @@ public class Floor {
         boxes = new ArrayList<>();
         deadWorkers = new ArrayList<>();
         deadBoxes = new ArrayList<>();
+        numberOfWorkers = 0;
+        activeWorker = 1;
     }
 
+    public Field[][] getFloor() {
+        return floor;
+    }
+
+    public ArrayList<Controller> getAllWorkers() {
+        ArrayList<Controller> ret = new ArrayList<>();
+        ret.addAll(workers);
+        ret.addAll(deadWorkers);
+        return ret;
+    }
+
+    private Controller getWorkerByID(int ID) {
+        Controller c = new Worker(0);
+        for (int i = 0; i < workers.size(); i++) {
+            if (workers.get(i).getID() == ID) c = workers.get(i);
+        }
+        return c;
+    }
 
     /**
      * Minden lepesnel ellenorzi, hogy veget ert-e a jatek. Ha igen, akkor meghivja a Game osztaly finish() metodusat.
      */
-    public void gameOver() {
+    public boolean gameOver() {
 
         boolean finished = false;
 
@@ -67,19 +88,44 @@ public class Floor {
         }
 
         if (finished || !anyBoxPushable) {
-            Game.getInstance().finish();
+            //Game.getInstance().finish();
             logger.debug("Jatek befejezodott");
+            return true;
         }
+        return false;
+    }
+
+    /**
+     * Visszatér az aktív játékos sorszámával
+     */
+    public int getActiveWorker() {
+        return activeWorker;
     }
 
     /**
      * meghivja az eppen aktiv jatekos gainPoint() metodusat.
      */
     public void rewardCurrentPlayer() {
-
-        workers.get(activeWorker).gainPoint();
+        getWorkerByID(activeWorker).gainPoint();
         logger.debug("Jatekos pontot kapott");
+    }
 
+    /**
+     * kiválasztja a következő jatekost
+     */
+    public void nextTurn() {
+        int id = activeWorker + 1;
+        while (true) {
+            if (id > numberOfWorkers)
+                id = 1;
+            for (int j = 0; j < workers.size(); j++) {
+                if (workers.get(j).getID() == id) {
+                    activeWorker = id;
+                    return;
+                }
+            }
+            id++;
+        }
     }
 
     /**
@@ -95,7 +141,7 @@ public class Floor {
      */
     public void activePlayerMoves(Direction dir) {
         logger.debug("irany: " + dir.toString());
-        workers.get(activeWorker).step(dir);
+        getWorkerByID(activeWorker).step(dir);
     }
 
     /**
@@ -103,9 +149,9 @@ public class Floor {
      */
     public void activePlayerlubricates(String type) {
         if (type.equals("oil"))
-            workers.get(activeWorker).lubricateOil();
+            getWorkerByID(activeWorker).lubricateOil();
         else if (type.equals("honey"))
-            workers.get(activeWorker).lubricateHoney();
+            getWorkerByID(activeWorker).lubricateHoney();
     }
 
     /**
@@ -173,8 +219,9 @@ public class Floor {
                         break;
 
                     case "worker":
-                        p = new Worker();
+                        p = new Worker(Integer.parseInt(splitLine[3]));
                         workers.add((Worker) p);
+                        numberOfWorkers++;
                         break;
 
                     default:
@@ -268,19 +315,30 @@ public class Floor {
      * @param p
      */
     public void pushableDied(Pushable p) {
+        int idx = -1;
         for (int i = 0; i < workers.size(); i++) {
             if (workers.get(i).equals(p)) {
-                Controller removed = workers.remove(i);
-                deadWorkers.add(removed);
-                logger.debug("Munkas meghalt");
+                idx = i;
+                break;
             }
         }
+        if (idx >= 0) {
+            Controller removed = workers.remove(idx);
+            deadWorkers.add(removed);
+            logger.debug("Munkas meghalt");
+        }
+
+        idx = -1;
         for (int i = 0; i < boxes.size(); i++) {
             if (boxes.get(i).equals(p)) {
-                Pushable removed = boxes.remove(i);
-                deadBoxes.add(removed);
-                logger.debug("Doboz eltunt");
+                idx = i;
+                break;
             }
+        }
+        if (idx >= 0) {
+            Pushable removed = boxes.remove(idx);
+            deadBoxes.add(removed);
+            logger.debug("Doboz eltunt");
         }
     }
 

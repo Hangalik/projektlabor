@@ -6,6 +6,8 @@ import hu.bme.annaATbarbies.sokoban.model.field.Field;
 import hu.bme.annaATbarbies.sokoban.model.field.Switch;
 import org.apache.log4j.Logger;
 
+import java.awt.image.BufferedImage;
+
 /**
  * Absztrakt osztaly. Tolhatosagot biztositja a leszarmazottjainak.
  * Rajta keresztul erthetik el a mezo osztalyt.
@@ -16,6 +18,8 @@ public abstract class Pushable {
     private static final Logger logger = Logger.getLogger(Pushable.class);
 
     protected Field field;
+
+    public abstract BufferedImage getImg();
 
     /**
      * Definialja, hogy mi tortenik, ha egy lada tolta meg.
@@ -56,7 +60,7 @@ public abstract class Pushable {
      * TODO: No description in the doc...
      */
     public void die() {
-        field.removePushable();    //eltavolitja a mezororol
+        field.removePushable();    //eltavolitja a mezorol
         Floor.getInstance().pushableDied(this);    //szol a palyanak, hogy egy jatekossal kevesebb van
     }
 

@@ -2,9 +2,15 @@ package hu.bme.annaATbarbies.sokoban.model.pushable;
 
 import hu.bme.annaATbarbies.sokoban.model.Direction;
 import hu.bme.annaATbarbies.sokoban.model.Floor;
+import hu.bme.annaATbarbies.sokoban.model.field.Block;
 import hu.bme.annaATbarbies.sokoban.model.field.Field;
 import hu.bme.annaATbarbies.sokoban.model.field.Switch;
 import org.apache.log4j.Logger;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Egy ladat reprezental. Definialja, hogy egy lada hogyan tolhato, illetve visszajelzest ad a lada allapotarol.
@@ -12,6 +18,21 @@ import org.apache.log4j.Logger;
 public class Box extends Pushable {
 
     private static final Logger logger = Logger.getLogger(Box.class);
+
+    private static BufferedImage boxImg = null;
+
+    static {
+        try {
+            boxImg = ImageIO.read(new File("src/res_small/box.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public BufferedImage getImg() {
+        return boxImg;
+    }
 
     /**
      * Definialja, hogy mi tortenik, ha egy lada tolta meg. Ekkor ha a kovetkezo mezo ures, ratolodik.
@@ -92,13 +113,55 @@ public class Box extends Pushable {
 
     /**
      * Hamis ertekkel ter vissza, ha mar biztosan nem lehet eltolni.
-     *
+     *Ez azt jelenti, hogy 
      * @return
      */
     public boolean amIPushable() {
+    	logger.debug("Lada eltolhatosaganak a vizsgalata.");
+    	if(!(testMovability(Direction.LEFT) || testMovability(Direction.UP))) {
+    		logger.debug("A lada bal felso sarokba akadt.");
+    		return false;
+    	}
+    	else if(!(testMovability(Direction.LEFT) || testMovability(Direction.DOWN))) {
+    		logger.debug("A lada bal also sarokba akadt.");
+    		return false;
+    	}
+    	else if(!(testMovability(Direction.RIGHT) || testMovability(Direction.UP))) {
+    		logger.debug("A lada jobb felso sarokba akadt.");
+    		return false;
+    	}
+    	else if(!(testMovability(Direction.RIGHT) || testMovability(Direction.DOWN))) {
+    		logger.debug("A lada jobb also sarokba akadt.");
+    		return false;
+    	}
+    	logger.debug("A lada mozgathato.");
         return true;
     }
+    
+    /**
+     * Teszteli, hogy egy lada eltolhato-e egy iranyba
+     * @param d az eltolas iranya
+     * @return igaz, amennyiben eltolhato
+     */
+    private boolean testMovability(Direction d) {
+    	logger.debug("Mozgathatosag tesztelese.");
+    	Field iField = this.field;
+    	while(iField.getObstacle() instanceof Box) {
+    		iField = iField.getNeighbor(d);
+    		if(iField == null) {
+    			return false;
+    		}
+    	}
 
+    	if(iField instanceof Block) {
+    		logger.debug("A lada nem mozdithato el.");
+    		return false;
+    	}
+    	else {
+    		logger.debug("A lada elmozdithato");
+    		return true;
+    	}
+    }
     /**
      * meghivja a Switch tipusu objektum switch() metodusat, ha egy doboz ramegy a kapcsolora.
      */
